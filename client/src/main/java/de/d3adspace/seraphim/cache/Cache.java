@@ -22,17 +22,49 @@
 package de.d3adspace.seraphim.cache;
 
 /**
+ * The basic interface for all caches.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 public interface Cache<KeyType, ValueType> {
 	
+	/**
+	 * Store an element in the cache with an unlimited time to live.
+	 *
+	 * @param key The key.
+	 * @param value The value.
+	 */
 	void put(KeyType key, ValueType value);
 	
+	/**
+	 * Store an element in the cache with the given time to live.
+	 *
+	 * @param key The key.
+	 * @param value The value.
+	 * @param timeToLive The ttl.
+	 */
 	void put(KeyType key, ValueType value, long timeToLive);
 	
+	/**
+	 * Retrieve an element from the cache or null if it isnt present
+	 *
+	 * @param key The key.
+	 * @return The value.
+	 */
 	ValueType get(KeyType key);
 	
+	/**
+	 * Check if there is a value for the given key.
+	 *
+	 * @param key The key.
+	 * @return If there is a value for the key.
+	 */
 	boolean isPresent(KeyType key);
 	
+	/**
+	 * Remove an element from the cache.
+	 *
+	 * @param key The key.
+	 */
 	void invalidate(KeyType key);
 }
