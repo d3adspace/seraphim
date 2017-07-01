@@ -43,6 +43,9 @@ import java.util.function.Consumer;
  */
 public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 	
+	/**
+	 * The underlying skylla client.
+	 */
 	private final SkyllaClient skyllaClient;
 	
 	SeraphimRemoteCache(String serverHost, int serverPort) {

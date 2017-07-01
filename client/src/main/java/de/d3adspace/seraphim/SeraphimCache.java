@@ -31,6 +31,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 	
+	/**
+	 * Underlying Map.
+	 */
 	private final Map<KeyType, CacheEntry<ValueType>> cache;
 	
 	SeraphimCache() {

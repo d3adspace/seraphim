@@ -29,8 +29,16 @@ import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
  */
 public class Seraphim {
 	
+	/**
+	 * Hawkings instance.
+	 */
 	private static final Hawkings<PacketInGetResponse> HAWKINGS = new Hawkings<>();
 	
+	/**
+	 * Get the hawkings instance.
+	 *
+	 * @return The hawkings.
+	 */
 	public static Hawkings<PacketInGetResponse> getHawkings() {
 		return HAWKINGS;
 	}
