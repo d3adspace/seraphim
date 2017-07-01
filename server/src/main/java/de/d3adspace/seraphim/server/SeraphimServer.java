@@ -31,12 +31,21 @@ import de.d3adspace.skylla.server.SkyllaServer;
 import de.d3adspace.skylla.server.SkyllaServerFactory;
 
 /**
- * @author Felix 'SasukeKawaii' Klauke
+ * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
 public class SeraphimServer {
 	
+	/**
+	 * The underlying server
+	 */
 	private final SkyllaServer skyllaServer;
 	
+	/**
+	 * Creating a new servers.
+	 *
+	 * @param host The host.
+	 * @param port The port.
+	 */
 	SeraphimServer(String host, int port) {
 		ServerCache serverCache = new ServerCache();
 		

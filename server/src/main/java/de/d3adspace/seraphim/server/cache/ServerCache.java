@@ -26,16 +26,30 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author Felix 'SasukeKawaii' Klauke
+ * Server Side CacheImpl providing basic CRUD Operations.
+ *
+ * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
 public class ServerCache {
 	
+	/**
+	 * Underlying Map
+	 */
 	private final Map<Object, CacheEntry> cache;
 	
+	/**
+	 * Create a new cache
+	 */
 	public ServerCache() {
 		this.cache = new ConcurrentHashMap<>();
 	}
 	
+	/**
+	 * Retrieve an object from the cache.
+	 *
+	 * @param key The key.
+	 * @return The value.
+	 */
 	public Object get(Object key) {
 		CacheEntry cacheEntry = this.cache.get(key);
 		
@@ -43,6 +57,7 @@ public class ServerCache {
 			return null;
 		}
 		
+		// Check expire
 		long expire = cacheEntry.getExpire();
 		
 		if (expire != -1) {
@@ -57,10 +72,21 @@ public class ServerCache {
 		return cacheEntry.getValue();
 	}
 	
+	/**
+	 * Remove an object from the cache
+	 *
+	 * @param key The key.
+	 */
 	public void remove(Object key) {
 		this.cache.remove(key);
 	}
 	
+	/**
+	 * Add a new object to the cache.
+	 *
+	 * @param key The key.
+	 * @param cacheEntry The entry in the cache.
+	 */
 	public void put(Object key, CacheEntry cacheEntry) {
 		this.cache.put(key, cacheEntry);
 	}

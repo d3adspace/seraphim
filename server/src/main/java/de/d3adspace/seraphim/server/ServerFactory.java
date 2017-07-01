@@ -22,10 +22,20 @@
 package de.d3adspace.seraphim.server;
 
 /**
- * @author Felix 'SasukeKawaii' Klauke
+ * Factory to create all further Servers.
+ *
+ * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
 public class ServerFactory {
 	
+	/**
+	 * Create a new server
+	 *
+	 * @param host The host.
+	 * @param port The port.
+	 *
+	 * @return The server.
+	 */
 	public static SeraphimServer createServer(String host, int port) {
 		return new SeraphimServer(host, port);
 	}
