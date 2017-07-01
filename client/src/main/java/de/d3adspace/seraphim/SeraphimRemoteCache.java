@@ -22,6 +22,8 @@
 package de.d3adspace.seraphim;
 
 import de.d3adspace.seraphim.cache.Cache;
+import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
+import de.d3adspace.seraphim.protocol.SeraphimProtocol;
 import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
 import de.d3adspace.seraphim.protocol.packet.PacketOutGet;
 import de.d3adspace.seraphim.protocol.packet.PacketOutInvalidate;
@@ -29,6 +31,8 @@ import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
 import de.d3adspace.skylla.client.SkyllaClient;
 import de.d3adspace.skylla.client.SkyllaClientFactory;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
+import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
+import de.d3adspace.skylla.commons.protocol.Protocol;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -41,7 +45,16 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	private final SkyllaClient skyllaClient;
 	
-	public SeraphimRemoteCache(SkyllaConfig config) {
+	public SeraphimRemoteCache(String serverHost, int serverPort) {
+		Protocol protocol = new SeraphimProtocol();
+		protocol.registerListener(new SeraphimClientPacketHandler());
+		
+		SkyllaConfig config = new SkyllaConfigBuilder()
+			.setProtocol(protocol)
+			.setServerHost(serverHost)
+			.setServerPort(serverPort)
+			.createSkyllaConfig();
+		
 		this.skyllaClient = SkyllaClientFactory.createSkyllaClient(config);
 		this.skyllaClient.connect();
 	}
@@ -85,7 +98,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public boolean isPresent(KeyType key) {
-		return get(key) == null;
+		return get(key) != null;
 	}
 	
 	@Override

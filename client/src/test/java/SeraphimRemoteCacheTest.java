@@ -21,11 +21,6 @@
 
 import de.d3adspace.seraphim.SeraphimRemoteCache;
 import de.d3adspace.seraphim.cache.Cache;
-import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
-import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.skylla.commons.config.SkyllaConfig;
-import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
-import de.d3adspace.skylla.commons.protocol.Protocol;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
@@ -33,20 +28,13 @@ import de.d3adspace.skylla.commons.protocol.Protocol;
 public class SeraphimRemoteCacheTest {
 	
 	public static void main(String[] args) {
-		Protocol protocol = new SeraphimProtocol();
-		protocol.registerListener(new SeraphimClientPacketHandler());
-		
-		SkyllaConfig config = new SkyllaConfigBuilder()
-			.setServerPort(1337)
-			.setServerHost("localhost")
-			.setProtocol(protocol)
-			.createSkyllaConfig();
-		
-		Cache<String, String> cache = new SeraphimRemoteCache<>(config);
+		Cache<String, String> cache = new SeraphimRemoteCache<String, String>("localhost", 1337);
 		cache.put("Test", "Nein.");
 		
 		System.out.println(cache.get("Test"));
 		
 		cache.invalidate("Test");
+		
+		System.out.println(cache.isPresent("Test"));
 	}
 }

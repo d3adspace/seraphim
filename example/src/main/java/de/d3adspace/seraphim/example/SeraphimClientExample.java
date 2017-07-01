@@ -19,21 +19,25 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.d3adspace.seraphim.handler;
+package de.d3adspace.seraphim.example;
 
-import de.d3adspace.seraphim.Seraphim;
-import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
-import de.d3adspace.skylla.commons.connection.SkyllaConnection;
-import de.d3adspace.skylla.commons.protocol.handler.PacketHandler;
-import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
+import de.d3adspace.seraphim.SeraphimRemoteCache;
+import de.d3adspace.seraphim.cache.Cache;
+import java.util.UUID;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
-public class SeraphimClientPacketHandler implements PacketHandler {
+public class SeraphimClientExample {
 	
-	@PacketHandlerMethod
-	public void onPacketGet(SkyllaConnection connection, PacketInGetResponse packet) {
-		Seraphim.getHawkings().invokeConsumer(packet.getCallbackId(), packet);
+	public static void main(String[] args) {
+		Cache<UUID, UUID> cache = new SeraphimRemoteCache<UUID, UUID>("localhost", 1337);
+		
+		UUID uniqueIdKey = UUID.randomUUID();
+		UUID uniqueIdValue = UUID.randomUUID();
+		
+		cache.put(uniqueIdKey, uniqueIdValue);
+		
+		System.out.println(cache.get(uniqueIdKey));
 	}
 }
