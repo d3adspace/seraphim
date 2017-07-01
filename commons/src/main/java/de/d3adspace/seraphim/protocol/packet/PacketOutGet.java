@@ -26,26 +26,55 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
+ * Providing one of the three basic CRUD Operation. Requesting to answer with a cached value or
+ * null.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 1)
 public class PacketOutGet extends SeraphimPacket {
 	
+	/**
+	 * The client side callbackId.
+	 */
 	private int callbackId;
+	
+	/**
+	 * The key of the value to retrieve.
+	 */
 	private Object key;
 	
+	/**
+	 * Create a new request.
+	 *
+	 * @param callbackId The callbackId
+	 * @param key The key.
+	 */
 	public PacketOutGet(int callbackId, Object key) {
 		this.callbackId = callbackId;
 		this.key = key;
 	}
 	
+	/**
+	 * Packet constructor
+	 */
 	public PacketOutGet() {
 	}
 	
+	/**
+	 * Get the key of the object to retrieve.
+	 *
+	 * @return The key.
+	 */
 	public Object getKey() {
 		return key;
 	}
 	
+	/**
+	 * Get the client side callback id
+	 *
+	 * @return The callbackId.
+	 */
 	public int getCallbackId() {
 		return callbackId;
 	}

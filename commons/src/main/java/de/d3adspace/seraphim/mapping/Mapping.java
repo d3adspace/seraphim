@@ -29,10 +29,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
+ * Mapping layer of seraphim.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class Mapping {
 	
+	/**
+	 * Write an object directly as an bytearray to the buffer.
+	 *
+	 * TODO: Implement logic into Skylla
+	 *
+	 * @param skyllaBuffer The buffer.
+	 * @param key The object to write.
+	 */
 	public void write(SkyllaBuffer skyllaBuffer, Object key) {
 		try {
 			byte[] bytes = serialize(key);
@@ -43,6 +53,14 @@ public class Mapping {
 		}
 	}
 	
+	/**
+	 * Read an object from the next byte array.
+	 *
+	 * TODO: Implement logic into Skylla
+	 *
+	 * @param skyllaBuffer The buffer.
+	 * @return the deserialized value.
+	 */
 	public Object read(SkyllaBuffer skyllaBuffer) {
 		int length = skyllaBuffer.readInt();
 		byte[] bytes = new byte[length];
@@ -57,14 +75,33 @@ public class Mapping {
 		return null;
 	}
 	
-	public byte[] serialize(Object obj) throws IOException {
+	/**
+	 * Serialize an object to a byte array.
+	 *
+	 * @param obj The object to serialize.
+	 *
+	 * @return The byte array.
+	 *
+	 * @throws IOException on serializing failure
+	 */
+	private byte[] serialize(Object obj) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ObjectOutputStream os = new ObjectOutputStream(out);
 		os.writeObject(obj);
 		return out.toByteArray();
 	}
 	
-	public Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+	/**
+	 * Deserialize an Object froma bytestream
+	 *
+	 * @param data The data to deserialze from.
+	 *
+	 * @return The object.
+	 *
+	 * @throws IOException on deserialization failure.
+	 * @throws ClassNotFoundException If there is no serialized class.
+	 */
+	private Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream in = new ByteArrayInputStream(data);
 		ObjectInputStream is = new ObjectInputStream(in);
 		return is.readObject();

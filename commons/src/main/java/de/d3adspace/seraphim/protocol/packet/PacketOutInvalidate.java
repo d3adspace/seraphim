@@ -26,20 +26,39 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
+ * Providing one of the three basic CRUD Operation. Requesting to invalidate a remote cached
+ * object.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 2)
 public class PacketOutInvalidate extends SeraphimPacket {
 	
+	/**
+	 * They key to invalidate.
+	 */
 	private Object key;
 	
+	/**
+	 * Create a request.
+	 *
+	 * @param key The key.
+	 */
 	public PacketOutInvalidate(Object key) {
 		this.key = key;
 	}
 	
+	/**
+	 * Packet Constructor.
+	 */
 	public PacketOutInvalidate() {
 	}
 	
+	/**
+	 * Get the key of the object to invalidate.
+	 *
+	 * @return The key.
+	 */
 	public Object getKey() {
 		return key;
 	}

@@ -25,12 +25,23 @@ import de.d3adspace.seraphim.mapping.Mapping;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 
 /**
+ * Representing a packet designed for seraphim adding an extra encoding layer to be able
+ * to encode custom objects.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 public abstract class SeraphimPacket extends SkyllaPacket {
 	
+	/**
+	 * Mapping Context
+	 */
 	private static Mapping mapping = new Mapping();
 	
+	/**
+	 * Get the Mapping API
+	 *
+	 * @return The mapping context.
+	 */
 	public static Mapping getMapping() {
 		return mapping;
 	}

@@ -28,6 +28,8 @@ import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
 import de.d3adspace.skylla.commons.protocol.Protocol;
 
 /**
+ * The Protocol for sepharim that will register all important packets.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimProtocol extends Protocol {

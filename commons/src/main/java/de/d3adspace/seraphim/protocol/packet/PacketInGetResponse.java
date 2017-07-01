@@ -26,26 +26,54 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
+ * Response for getting values from a server side cache.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 4)
 public class PacketInGetResponse extends SeraphimPacket {
 	
+	/**
+	 * Id of the client side callback
+	 */
 	private int callbackId;
+	
+	/**
+	 * The value to cache
+	 */
 	private Object value;
 	
+	/**
+	 * Create a new PacketGet Response.
+	 *
+	 * @param callbackId The callbackId.
+	 * @param value The value.
+	 */
 	public PacketInGetResponse(int callbackId, Object value) {
 		this.callbackId = callbackId;
 		this.value = value;
 	}
 	
+	/**
+	 * Packet constructor
+	 */
 	public PacketInGetResponse() {
 	}
 	
+	/**
+	 * Get the value to cache.
+	 *
+	 * @return The value.
+	 */
 	public Object getValue() {
 		return value;
 	}
 	
+	/**
+	 * Get the callback id.
+	 *
+	 * @return The callback id.
+	 */
 	public int getCallbackId() {
 		return callbackId;
 	}
