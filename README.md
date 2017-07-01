@@ -12,11 +12,28 @@ https://github.com/D3adspaceEnterprises/skylla
 **Maven dependencies**
 
 _Client:_
-
 ```xml
 <dependency>
     <groupId>de.d3adspace</groupId>
     <artifactId>seraphim-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Server:_
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Commons:_
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-commons</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
