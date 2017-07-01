@@ -21,43 +21,41 @@
 
 package de.d3adspace.seraphim.server.handler;
 
+import de.d3adspace.seraphim.cache.CacheEntry;
 import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
 import de.d3adspace.seraphim.protocol.packet.PacketOutGet;
 import de.d3adspace.seraphim.protocol.packet.PacketOutInvalidate;
 import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
+import de.d3adspace.seraphim.server.cache.ServerCache;
 import de.d3adspace.skylla.commons.connection.SkyllaConnection;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandler;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class ServerPacketHandler implements PacketHandler {
 	
-	private final Map<Object, Object> map = new HashMap<Object, Object>();
+	private final ServerCache cache;
+	
+	public ServerPacketHandler(ServerCache cache) {
+		this.cache = cache;
+	}
 	
 	@PacketHandlerMethod
 	public void onPacketPut(SkyllaConnection connection, PacketOutPut packet) {
-		System.out.println("Putting: " + packet);
-		
-		this.map.put(packet.getKey(), packet.getValue());
+		this.cache.put(packet.getKey(), new CacheEntry(packet.getValue(), packet.getExpiry()));
 	}
 	
 	@PacketHandlerMethod
 	public void onPacketInvalidate(SkyllaConnection connection, PacketOutInvalidate packet) {
-		System.out.println("Invalidating: " + packet);
-		
-		this.map.remove(packet.getKey());
+		this.cache.remove(packet.getKey());
 	}
 	
 	@PacketHandlerMethod
 	public void onPacketGet(SkyllaConnection connection, PacketOutGet packet) {
-		System.out.println("Getting: " + packet);
-		
 		PacketInGetResponse packetInGetResponse = new PacketInGetResponse(packet.getCallbackId(),
-			map.get(packet.getKey()));
+			this.cache.get(packet.getKey()));
 		connection.sendPackets(packetInGetResponse);
 	}
 }

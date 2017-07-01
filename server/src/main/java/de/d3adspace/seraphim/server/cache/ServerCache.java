@@ -19,41 +19,49 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.d3adspace.seraphim.server;
+package de.d3adspace.seraphim.server.cache;
 
-import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.seraphim.server.cache.ServerCache;
-import de.d3adspace.seraphim.server.handler.ServerPacketHandler;
-import de.d3adspace.skylla.commons.config.SkyllaConfig;
-import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
-import de.d3adspace.skylla.commons.protocol.Protocol;
-import de.d3adspace.skylla.server.SkyllaServer;
-import de.d3adspace.skylla.server.SkyllaServerFactory;
+import de.d3adspace.seraphim.cache.CacheEntry;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
-public class SeraphimServer {
+public class ServerCache {
 	
-	private final SkyllaServer skyllaServer;
+	private final Map<Object, CacheEntry> cache;
 	
-	SeraphimServer(String host, int port) {
-		ServerCache serverCache = new ServerCache();
-		
-		Protocol protocol = new SeraphimProtocol();
-		protocol.registerListener(new ServerPacketHandler(serverCache));
-		
-		SkyllaConfig config = new SkyllaConfigBuilder()
-			.setServerHost(host)
-			.setServerPort(port)
-			.setProtocol(protocol)
-			.createSkyllaConfig();
-		
-		this.skyllaServer = SkyllaServerFactory.createSkyllaServer(config);
-		this.skyllaServer.start();
+	public ServerCache() {
+		this.cache = new ConcurrentHashMap<>();
 	}
 	
-	public SkyllaServer getSkyllaServer() {
-		return skyllaServer;
+	public Object get(Object key) {
+		CacheEntry cacheEntry = this.cache.get(key);
+		
+		if (cacheEntry == null) {
+			return null;
+		}
+		
+		long expire = cacheEntry.getExpire();
+		
+		if (expire != -1) {
+			long entrance = cacheEntry.getEntrance();
+			
+			if ((System.currentTimeMillis() - entrance) > expire) {
+				this.cache.remove(key);
+				return null;
+			}
+		}
+		
+		return cacheEntry.getValue();
+	}
+	
+	public void remove(Object key) {
+		this.cache.remove(key);
+	}
+	
+	public void put(Object key, CacheEntry cacheEntry) {
+		this.cache.put(key, cacheEntry);
 	}
 }
