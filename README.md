@@ -3,7 +3,25 @@
 A simple and lightweight key-value in memory store built on top of 
 https://github.com/D3adspaceEnterprises/skylla
 
-Example:
+# Installation / Usage
+
+- Install [Maven](http://maven.apache.org/download.cgi)
+- Clone this repo
+- Installh: ```mvn clean install```
+
+**Maven dependencies**
+
+_Client:_
+
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+# Example:
 ```java
 /*
  * Copyright (c) 2017 D3adspace
