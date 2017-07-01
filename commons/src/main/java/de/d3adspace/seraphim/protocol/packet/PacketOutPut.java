@@ -52,6 +52,10 @@ public class PacketOutPut extends SeraphimPacket {
 		return value;
 	}
 	
+	public long getExpiry() {
+		return expiry;
+	}
+	
 	public void write(SkyllaBuffer skyllaBuffer) {
 		getMapping().write(skyllaBuffer, key);
 		getMapping().write(skyllaBuffer, value);
