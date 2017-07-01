@@ -1,7 +1,7 @@
 # Seraphim
 
 A simple and lightweight key-value in memory store built on top of 
-https://github.com/D3adspaceEnterprises/skylla
+https://github.com/D3adspaceEnterprises/skylla - Seraphim uses https://github.com/D3adspaceEnterprises/hawkings for local consumer management.
 
 # Installation / Usage
 
