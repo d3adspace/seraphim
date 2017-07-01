@@ -21,7 +21,7 @@
 
 package de.d3adspace.seraphim.example;
 
-import de.d3adspace.seraphim.SeraphimRemoteCache;
+import de.d3adspace.seraphim.CacheFactory;
 import de.d3adspace.seraphim.cache.Cache;
 import java.util.UUID;
 
@@ -31,7 +31,7 @@ import java.util.UUID;
 public class SeraphimClientExample {
 	
 	public static void main(String[] args) {
-		Cache<UUID, UUID> cache = new SeraphimRemoteCache<UUID, UUID>("localhost", 1337);
+		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhsot", 1337);
 		
 		UUID uniqueIdKey = UUID.randomUUID();
 		UUID uniqueIdValue = UUID.randomUUID();

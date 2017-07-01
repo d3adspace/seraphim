@@ -21,9 +21,19 @@
 
 package de.d3adspace.seraphim;
 
+import de.d3adspace.seraphim.cache.Cache;
+
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class CacheFactory {
 	
+	public static <KeyType, ValueType> Cache<KeyType, ValueType> createCache() {
+		return new SeraphimCache<>();
+	}
+	
+	public static <KeyType, ValueType> Cache<KeyType, ValueType> connectToRemoteCache(String host,
+		int port) {
+		return new SeraphimRemoteCache<>(host, port);
+	}
 }

@@ -45,7 +45,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	private final SkyllaClient skyllaClient;
 	
-	public SeraphimRemoteCache(String serverHost, int serverPort) {
+	SeraphimRemoteCache(String serverHost, int serverPort) {
 		Protocol protocol = new SeraphimProtocol();
 		protocol.registerListener(new SeraphimClientPacketHandler());
 		

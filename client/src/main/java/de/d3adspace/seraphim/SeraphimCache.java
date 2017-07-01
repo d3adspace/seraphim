@@ -33,7 +33,7 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	
 	private final Map<KeyType, CacheEntry<ValueType>> cache;
 	
-	public SeraphimCache() {
+	SeraphimCache() {
 		this.cache = new ConcurrentHashMap<>();
 	}
 	
