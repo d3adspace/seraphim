@@ -92,7 +92,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 		this.skyllaClient.sendPacket(packet);
 		
 		try {
-			countDownLatch.await(3, TimeUnit.SECONDS);
+			countDownLatch.await(1, TimeUnit.SECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
