@@ -26,6 +26,8 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
+ * Will be sent whenever you want to throw away your whole cache.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 5)
