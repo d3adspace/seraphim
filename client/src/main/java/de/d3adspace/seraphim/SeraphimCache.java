@@ -83,4 +83,9 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	public void invalidate(KeyType key) {
 		this.cache.remove(key);
 	}
+	
+	@Override
+	public void invalidateAll() {
+		this.cache.clear();
+	}
 }

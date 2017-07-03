@@ -67,4 +67,9 @@ public interface Cache<KeyType, ValueType> {
 	 * @param key The key.
 	 */
 	void invalidate(KeyType key);
+	
+	/**
+	 * Removes all elements from the cache.
+	 */
+	void invalidateAll();
 }

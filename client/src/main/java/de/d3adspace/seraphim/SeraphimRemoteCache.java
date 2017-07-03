@@ -24,6 +24,7 @@ package de.d3adspace.seraphim;
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
 import de.d3adspace.seraphim.protocol.SeraphimProtocol;
+import de.d3adspace.seraphim.protocol.packet.PacketClear;
 import de.d3adspace.seraphim.protocol.packet.PacketGet;
 import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
 import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
@@ -107,6 +108,12 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	@Override
 	public void invalidate(KeyType key) {
 		PacketInvalidate packet = new PacketInvalidate(key);
+		this.skyllaClient.sendPacket(packet);
+	}
+	
+	@Override
+	public void invalidateAll() {
+		PacketClear packet = new PacketClear();
 		this.skyllaClient.sendPacket(packet);
 	}
 }
