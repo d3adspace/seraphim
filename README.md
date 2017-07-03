@@ -71,7 +71,7 @@ import de.d3adspace.seraphim.server.SeraphimServer;
 public class SeraphimServerExample {
 	
 	public static void main(String[] args) {
-		SeraphimServer seraphimServer = ServerFactory.createServer("localhost", 1337);
+		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 1337);
 	}
 }
 

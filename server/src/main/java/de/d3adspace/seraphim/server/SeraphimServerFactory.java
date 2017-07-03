@@ -19,30 +19,24 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package de.d3adspace.seraphim.protocol;
-
-import de.d3adspace.seraphim.mapping.Mapping;
-import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
+package de.d3adspace.seraphim.server;
 
 /**
- * Representing a packet designed for seraphim adding an extra encoding layer to be able
- * to encode custom objects.
+ * Factory to create all further Servers.
  *
- * @author Felix 'SasukeKawaii' Klauke
+ * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
-public abstract class SeraphimPacket extends SkyllaPacket {
+public class SeraphimServerFactory {
 	
 	/**
-	 * Mapping Context
-	 */
-	private static Mapping mapping = new Mapping();
-	
-	/**
-	 * Get the Mapping API
+	 * Create a new server
 	 *
-	 * @return The mapping context.
+	 * @param host The host.
+	 * @param port The port.
+	 *
+	 * @return The server.
 	 */
-	public static Mapping getMapping() {
-		return mapping;
+	public static SeraphimServer createServer(String host, int port) {
+		return new SimpleSeraphimServer(host, port);
 	}
 }

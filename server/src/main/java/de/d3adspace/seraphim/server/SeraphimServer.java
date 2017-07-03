@@ -21,48 +21,18 @@
 
 package de.d3adspace.seraphim.server;
 
-import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.seraphim.server.cache.ServerCache;
-import de.d3adspace.seraphim.server.handler.ServerPacketHandler;
-import de.d3adspace.skylla.commons.config.SkyllaConfig;
-import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
-import de.d3adspace.skylla.commons.protocol.Protocol;
-import de.d3adspace.skylla.server.SkyllaServer;
-import de.d3adspace.skylla.server.SkyllaServerFactory;
-
 /**
- * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
+ * @author Felix 'SasukeKawaii' Klauke
  */
-public class SeraphimServer {
+public interface SeraphimServer {
 	
 	/**
-	 * The underlying server
+	 * Start the server.
 	 */
-	private final SkyllaServer skyllaServer;
+	void start();
 	
 	/**
-	 * Creating a new servers.
-	 *
-	 * @param host The host.
-	 * @param port The port.
+	 * Stop the server.
 	 */
-	SeraphimServer(String host, int port) {
-		ServerCache serverCache = new ServerCache();
-		
-		Protocol protocol = new SeraphimProtocol();
-		protocol.registerListener(new ServerPacketHandler(serverCache));
-		
-		SkyllaConfig config = new SkyllaConfigBuilder()
-			.setServerHost(host)
-			.setServerPort(port)
-			.setProtocol(protocol)
-			.createSkyllaConfig();
-		
-		this.skyllaServer = SkyllaServerFactory.createSkyllaServer(config);
-		this.skyllaServer.start();
-	}
-	
-	public SkyllaServer getSkyllaServer() {
-		return skyllaServer;
-	}
+	void stop();
 }

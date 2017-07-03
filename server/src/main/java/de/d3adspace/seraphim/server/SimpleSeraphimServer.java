@@ -21,22 +21,53 @@
 
 package de.d3adspace.seraphim.server;
 
+import de.d3adspace.seraphim.protocol.SeraphimProtocol;
+import de.d3adspace.seraphim.server.cache.ServerCache;
+import de.d3adspace.seraphim.server.handler.ServerPacketHandler;
+import de.d3adspace.skylla.commons.config.SkyllaConfig;
+import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
+import de.d3adspace.skylla.commons.protocol.Protocol;
+import de.d3adspace.skylla.server.SkyllaServer;
+import de.d3adspace.skylla.server.SkyllaServerFactory;
+
 /**
- * Factory to create all further Servers.
- *
  * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
-public class ServerFactory {
+public class SimpleSeraphimServer implements SeraphimServer {
 	
 	/**
-	 * Create a new server
+	 * The underlying server
+	 */
+	private final SkyllaServer skyllaServer;
+	
+	/**
+	 * Creating a new servers.
 	 *
 	 * @param host The host.
 	 * @param port The port.
-	 *
-	 * @return The server.
 	 */
-	public static SeraphimServer createServer(String host, int port) {
-		return new SeraphimServer(host, port);
+	SimpleSeraphimServer(String host, int port) {
+		ServerCache serverCache = new ServerCache();
+		
+		Protocol protocol = new SeraphimProtocol();
+		protocol.registerListener(new ServerPacketHandler(serverCache));
+		
+		SkyllaConfig config = new SkyllaConfigBuilder()
+			.setServerHost(host)
+			.setServerPort(port)
+			.setProtocol(protocol)
+			.createSkyllaConfig();
+		
+		this.skyllaServer = SkyllaServerFactory.createSkyllaServer(config);
+	}
+	
+	@Override
+	public void start() {
+		this.skyllaServer.start();
+	}
+	
+	@Override
+	public void stop() {
+		this.skyllaServer.stop();
 	}
 }
