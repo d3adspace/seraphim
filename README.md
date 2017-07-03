@@ -72,6 +72,7 @@ public class SeraphimServerExample {
 	
 	public static void main(String[] args) {
 		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 1337);
+		seraphimServer.start();
 	}
 }
 

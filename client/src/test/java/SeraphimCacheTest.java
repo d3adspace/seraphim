@@ -19,7 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.d3adspace.seraphim.SeraphimCache;
+import de.d3adspace.seraphim.CacheFactory;
+import de.d3adspace.seraphim.cache.Cache;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
@@ -27,7 +28,7 @@ import de.d3adspace.seraphim.SeraphimCache;
 public class SeraphimCacheTest {
 	
 	public static void main(String[] args) {
-		SeraphimCache<Integer, Integer> seraphimCache = new SeraphimCache<>();
+		Cache<Integer, Integer> seraphimCache = CacheFactory.createCache();
 		
 		seraphimCache.put(6, 36, 5);
 		seraphimCache.put(5, 25);

@@ -20,7 +20,7 @@
  */
 
 import de.d3adspace.seraphim.server.SeraphimServer;
-import de.d3adspace.seraphim.server.ServerFactory;
+import de.d3adspace.seraphim.server.SeraphimServerFactory;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
@@ -28,6 +28,6 @@ import de.d3adspace.seraphim.server.ServerFactory;
 public class SeraphimServerTest {
 	
 	public static void main(String[] args) {
-		SeraphimServer seraphimServer = ServerFactory.createServer("localhost", 8080);
+		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 8080);
 	}
 }

@@ -19,7 +19,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-import de.d3adspace.seraphim.SeraphimRemoteCache;
+import de.d3adspace.seraphim.CacheFactory;
 import de.d3adspace.seraphim.cache.Cache;
 
 /**
@@ -28,7 +28,7 @@ import de.d3adspace.seraphim.cache.Cache;
 public class SeraphimRemoteCacheTest {
 	
 	public static void main(String[] args) {
-		Cache<String, String> cache = new SeraphimRemoteCache<String, String>("localhost", 1337);
+		Cache<String, String> cache = CacheFactory.connectToRemoteCache("localhost", 1337);
 		cache.put("Test", "Nein.");
 		
 		System.out.println(cache.get("Test"));
