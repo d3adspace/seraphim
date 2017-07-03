@@ -22,6 +22,7 @@
 package de.d3adspace.seraphim.server.handler;
 
 import de.d3adspace.seraphim.cache.CacheEntry;
+import de.d3adspace.seraphim.protocol.packet.PacketClear;
 import de.d3adspace.seraphim.protocol.packet.PacketGet;
 import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
 import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
@@ -57,5 +58,10 @@ public class ServerPacketHandler implements PacketHandler {
 		PacketGetResponse packetInGetResponse = new PacketGetResponse(packet.getCallbackId(),
 			this.cache.get(packet.getKey()));
 		connection.sendPackets(packetInGetResponse);
+	}
+	
+	@PacketHandlerMethod
+	public void onPacketClear(SkyllaConnection connection, PacketClear packet) {
+		this.cache.invalidateAll();
 	}
 }

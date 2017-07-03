@@ -90,4 +90,11 @@ public class ServerCache {
 	public void put(Object key, CacheEntry cacheEntry) {
 		this.cache.put(key, cacheEntry);
 	}
+	
+	/**
+	 * Removes all elements from the cache.
+	 */
+	public void invalidateAll() {
+		this.cache.clear();
+	}
 }
