@@ -32,7 +32,7 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 1)
-public class PacketOutGet extends SeraphimPacket {
+public class PacketGet extends SeraphimPacket {
 	
 	/**
 	 * The client side callbackId.
@@ -50,7 +50,7 @@ public class PacketOutGet extends SeraphimPacket {
 	 * @param callbackId The callbackId
 	 * @param key The key.
 	 */
-	public PacketOutGet(int callbackId, Object key) {
+	public PacketGet(int callbackId, Object key) {
 		this.callbackId = callbackId;
 		this.key = key;
 	}
@@ -58,7 +58,7 @@ public class PacketOutGet extends SeraphimPacket {
 	/**
 	 * Packet constructor
 	 */
-	public PacketOutGet() {
+	public PacketGet() {
 	}
 	
 	/**
@@ -91,7 +91,7 @@ public class PacketOutGet extends SeraphimPacket {
 	
 	@Override
 	public String toString() {
-		return "PacketOutGet{" +
+		return "PacketGet{" +
 			"callbackId=" + callbackId +
 			", key=" + key +
 			'}';

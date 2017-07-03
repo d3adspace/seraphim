@@ -26,75 +26,55 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
- * Response for getting values from a server side cache.
+ * Providing one of the three basic CRUD Operation. Requesting to invalidate a remote cached
+ * object.
  *
  * @author Felix 'SasukeKawaii' Klauke
  */
-@SkyllaPacketMeta(id = 4)
-public class PacketInGetResponse extends SeraphimPacket {
+@SkyllaPacketMeta(id = 2)
+public class PacketInvalidate extends SeraphimPacket {
 	
 	/**
-	 * Id of the client side callback
+	 * They key to invalidate.
 	 */
-	private int callbackId;
+	private Object key;
 	
 	/**
-	 * The value to cache
-	 */
-	private Object value;
-	
-	/**
-	 * Create a new PacketGet Response.
+	 * Create a request.
 	 *
-	 * @param callbackId The callbackId.
-	 * @param value The value.
+	 * @param key The key.
 	 */
-	public PacketInGetResponse(int callbackId, Object value) {
-		this.callbackId = callbackId;
-		this.value = value;
+	public PacketInvalidate(Object key) {
+		this.key = key;
 	}
 	
 	/**
-	 * Packet constructor
+	 * Packet Constructor.
 	 */
-	public PacketInGetResponse() {
+	public PacketInvalidate() {
 	}
 	
 	/**
-	 * Get the value to cache.
+	 * Get the key of the object to invalidate.
 	 *
-	 * @return The value.
+	 * @return The key.
 	 */
-	public Object getValue() {
-		return value;
+	public Object getKey() {
+		return key;
 	}
 	
-	/**
-	 * Get the callback id.
-	 *
-	 * @return The callback id.
-	 */
-	public int getCallbackId() {
-		return callbackId;
-	}
-	
-	@Override
 	public void write(SkyllaBuffer skyllaBuffer) {
-		skyllaBuffer.writeInt(callbackId);
-		getMapping().write(skyllaBuffer, value);
+		getMapping().write(skyllaBuffer, key);
 	}
 	
-	@Override
 	public void read(SkyllaBuffer skyllaBuffer) {
-		callbackId = skyllaBuffer.readInt();
-		value = getMapping().read(skyllaBuffer);
+		key = getMapping().read(skyllaBuffer);
 	}
 	
 	@Override
 	public String toString() {
-		return "PacketInGetResponse{" +
-			"callbackId=" + callbackId +
-			", value=" + value +
+		return "PacketInvalidate{" +
+			"key=" + key +
 			'}';
 	}
 }

@@ -21,10 +21,11 @@
 
 package de.d3adspace.seraphim.protocol;
 
-import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
-import de.d3adspace.seraphim.protocol.packet.PacketOutGet;
-import de.d3adspace.seraphim.protocol.packet.PacketOutInvalidate;
-import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
+import de.d3adspace.seraphim.protocol.packet.PacketClear;
+import de.d3adspace.seraphim.protocol.packet.PacketGet;
+import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
+import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
+import de.d3adspace.seraphim.protocol.packet.PacketPut;
 import de.d3adspace.skylla.commons.protocol.Protocol;
 
 /**
@@ -35,9 +36,10 @@ import de.d3adspace.skylla.commons.protocol.Protocol;
 public class SeraphimProtocol extends Protocol {
 	
 	public SeraphimProtocol() {
-		this.registerPacket(PacketOutGet.class);
-		this.registerPacket(PacketOutInvalidate.class);
-		this.registerPacket(PacketOutPut.class);
-		this.registerPacket(PacketInGetResponse.class);
+		this.registerPacket(PacketGet.class);
+		this.registerPacket(PacketInvalidate.class);
+		this.registerPacket(PacketPut.class);
+		this.registerPacket(PacketGetResponse.class);
+		this.registerPacket(PacketClear.class);
 	}
 }

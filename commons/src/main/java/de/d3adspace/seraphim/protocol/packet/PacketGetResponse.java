@@ -26,52 +26,38 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
+ * Response for getting values from a server side cache.
+ *
  * @author Felix 'SasukeKawaii' Klauke
  */
-@SkyllaPacketMeta(id = 3)
-public class PacketOutPut extends SeraphimPacket {
+@SkyllaPacketMeta(id = 4)
+public class PacketGetResponse extends SeraphimPacket {
 	
 	/**
-	 * The key of the value to cache.
+	 * Id of the client side callback
 	 */
-	private Object key;
+	private int callbackId;
 	
 	/**
-	 * The value to cache.
+	 * The value to cache
 	 */
 	private Object value;
 	
 	/**
-	 * Time to live for the value.
-	 */
-	private long expiry;
-	
-	/**
-	 * Create a new Request.
+	 * Create a new PacketGet Response.
 	 *
-	 * @param key The key.
+	 * @param callbackId The callbackId.
 	 * @param value The value.
-	 * @param expiry The time to live.
 	 */
-	public PacketOutPut(Object key, Object value, long expiry) {
-		this.key = key;
+	public PacketGetResponse(int callbackId, Object value) {
+		this.callbackId = callbackId;
 		this.value = value;
-		this.expiry = expiry;
 	}
 	
 	/**
-	 * Packet Constructor
+	 * Packet constructor
 	 */
-	public PacketOutPut() {
-	}
-	
-	/**
-	 * Get the key of the object to cache.
-	 *
-	 * @return The key.
-	 */
-	public Object getKey() {
-		return key;
+	public PacketGetResponse() {
 	}
 	
 	/**
@@ -84,34 +70,31 @@ public class PacketOutPut extends SeraphimPacket {
 	}
 	
 	/**
-	 * Get the time to live of the value.
+	 * Get the callback id.
 	 *
-	 * @return The time to live.
+	 * @return The callback id.
 	 */
-	public long getExpiry() {
-		return expiry;
+	public int getCallbackId() {
+		return callbackId;
 	}
 	
 	@Override
 	public void write(SkyllaBuffer skyllaBuffer) {
-		getMapping().write(skyllaBuffer, key);
+		skyllaBuffer.writeInt(callbackId);
 		getMapping().write(skyllaBuffer, value);
-		skyllaBuffer.writeLong(expiry);
 	}
 	
 	@Override
 	public void read(SkyllaBuffer skyllaBuffer) {
-		key = getMapping().read(skyllaBuffer);
+		callbackId = skyllaBuffer.readInt();
 		value = getMapping().read(skyllaBuffer);
-		expiry = skyllaBuffer.readLong();
 	}
 	
 	@Override
 	public String toString() {
-		return "PacketOutPut{" +
-			"key=" + key +
+		return "PacketGetResponse{" +
+			"callbackId=" + callbackId +
 			", value=" + value +
-			", expiry=" + expiry +
 			'}';
 	}
 }

@@ -22,7 +22,7 @@
 package de.d3adspace.seraphim.handler;
 
 import de.d3adspace.seraphim.Seraphim;
-import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
+import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
 import de.d3adspace.skylla.commons.connection.SkyllaConnection;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandler;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
@@ -33,7 +33,7 @@ import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
 public class SeraphimClientPacketHandler implements PacketHandler {
 	
 	@PacketHandlerMethod
-	public void onPacketGet(SkyllaConnection connection, PacketInGetResponse packet) {
+	public void onPacketGet(SkyllaConnection connection, PacketGetResponse packet) {
 		Seraphim.getHawkings().invokeConsumer(packet.getCallbackId(), packet);
 	}
 }

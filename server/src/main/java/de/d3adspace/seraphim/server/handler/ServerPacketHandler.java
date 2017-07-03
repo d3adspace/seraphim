@@ -22,10 +22,10 @@
 package de.d3adspace.seraphim.server.handler;
 
 import de.d3adspace.seraphim.cache.CacheEntry;
-import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
-import de.d3adspace.seraphim.protocol.packet.PacketOutGet;
-import de.d3adspace.seraphim.protocol.packet.PacketOutInvalidate;
-import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
+import de.d3adspace.seraphim.protocol.packet.PacketGet;
+import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
+import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
+import de.d3adspace.seraphim.protocol.packet.PacketPut;
 import de.d3adspace.seraphim.server.cache.ServerCache;
 import de.d3adspace.skylla.commons.connection.SkyllaConnection;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandler;
@@ -43,18 +43,18 @@ public class ServerPacketHandler implements PacketHandler {
 	}
 	
 	@PacketHandlerMethod
-	public void onPacketPut(SkyllaConnection connection, PacketOutPut packet) {
+	public void onPacketPut(SkyllaConnection connection, PacketPut packet) {
 		this.cache.put(packet.getKey(), new CacheEntry(packet.getValue(), packet.getExpiry()));
 	}
 	
 	@PacketHandlerMethod
-	public void onPacketInvalidate(SkyllaConnection connection, PacketOutInvalidate packet) {
+	public void onPacketInvalidate(SkyllaConnection connection, PacketInvalidate packet) {
 		this.cache.remove(packet.getKey());
 	}
 	
 	@PacketHandlerMethod
-	public void onPacketGet(SkyllaConnection connection, PacketOutGet packet) {
-		PacketInGetResponse packetInGetResponse = new PacketInGetResponse(packet.getCallbackId(),
+	public void onPacketGet(SkyllaConnection connection, PacketGet packet) {
+		PacketGetResponse packetInGetResponse = new PacketGetResponse(packet.getCallbackId(),
 			this.cache.get(packet.getKey()));
 		connection.sendPackets(packetInGetResponse);
 	}

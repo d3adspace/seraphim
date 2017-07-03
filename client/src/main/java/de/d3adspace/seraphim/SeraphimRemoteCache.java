@@ -24,10 +24,10 @@ package de.d3adspace.seraphim;
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
 import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.seraphim.protocol.packet.PacketInGetResponse;
-import de.d3adspace.seraphim.protocol.packet.PacketOutGet;
-import de.d3adspace.seraphim.protocol.packet.PacketOutInvalidate;
-import de.d3adspace.seraphim.protocol.packet.PacketOutPut;
+import de.d3adspace.seraphim.protocol.packet.PacketGet;
+import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
+import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
+import de.d3adspace.seraphim.protocol.packet.PacketPut;
 import de.d3adspace.skylla.client.SkyllaClient;
 import de.d3adspace.skylla.client.SkyllaClientFactory;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
@@ -69,25 +69,25 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public void put(KeyType key, ValueType value, long timeToLive) {
-		PacketOutPut packetPut = new PacketOutPut(key, value, timeToLive);
+		PacketPut packetPut = new PacketPut(key, value, timeToLive);
 		this.skyllaClient.sendPacket(packetPut);
 	}
 	
 	@Override
 	public ValueType get(KeyType key) {
-		AtomicReference<PacketInGetResponse> atomicReference = new AtomicReference<>(null);
+		AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
 		CountDownLatch countDownLatch = new CountDownLatch(1);
 		
 		int callbackId = Seraphim.getHawkings().incrementAndGetId();
 		
-		Consumer<PacketInGetResponse> consumer = value -> {
+		Consumer<PacketGetResponse> consumer = value -> {
 			atomicReference.set(value);
 			countDownLatch.countDown();
 		};
 		
 		Seraphim.getHawkings().registerConsumer(consumer);
 		
-		PacketOutGet packet = new PacketOutGet(callbackId, key);
+		PacketGet packet = new PacketGet(callbackId, key);
 		this.skyllaClient.sendPacket(packet);
 		
 		try {
@@ -106,7 +106,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public void invalidate(KeyType key) {
-		PacketOutInvalidate packet = new PacketOutInvalidate(key);
+		PacketInvalidate packet = new PacketInvalidate(key);
 		this.skyllaClient.sendPacket(packet);
 	}
 }

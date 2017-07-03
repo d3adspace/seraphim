@@ -26,36 +26,47 @@ import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
- * Providing one of the three basic CRUD Operation. Requesting to invalidate a remote cached
- * object.
- *
  * @author Felix 'SasukeKawaii' Klauke
  */
-@SkyllaPacketMeta(id = 2)
-public class PacketOutInvalidate extends SeraphimPacket {
+@SkyllaPacketMeta(id = 3)
+public class PacketPut extends SeraphimPacket {
 	
 	/**
-	 * They key to invalidate.
+	 * The key of the value to cache.
 	 */
 	private Object key;
 	
 	/**
-	 * Create a request.
+	 * The value to cache.
+	 */
+	private Object value;
+	
+	/**
+	 * Time to live for the value.
+	 */
+	private long expiry;
+	
+	/**
+	 * Create a new Request.
 	 *
 	 * @param key The key.
+	 * @param value The value.
+	 * @param expiry The time to live.
 	 */
-	public PacketOutInvalidate(Object key) {
+	public PacketPut(Object key, Object value, long expiry) {
 		this.key = key;
+		this.value = value;
+		this.expiry = expiry;
 	}
 	
 	/**
-	 * Packet Constructor.
+	 * Packet Constructor
 	 */
-	public PacketOutInvalidate() {
+	public PacketPut() {
 	}
 	
 	/**
-	 * Get the key of the object to invalidate.
+	 * Get the key of the object to cache.
 	 *
 	 * @return The key.
 	 */
@@ -63,18 +74,44 @@ public class PacketOutInvalidate extends SeraphimPacket {
 		return key;
 	}
 	
-	public void write(SkyllaBuffer skyllaBuffer) {
-		getMapping().write(skyllaBuffer, key);
+	/**
+	 * Get the value to cache.
+	 *
+	 * @return The value.
+	 */
+	public Object getValue() {
+		return value;
 	}
 	
+	/**
+	 * Get the time to live of the value.
+	 *
+	 * @return The time to live.
+	 */
+	public long getExpiry() {
+		return expiry;
+	}
+	
+	@Override
+	public void write(SkyllaBuffer skyllaBuffer) {
+		getMapping().write(skyllaBuffer, key);
+		getMapping().write(skyllaBuffer, value);
+		skyllaBuffer.writeLong(expiry);
+	}
+	
+	@Override
 	public void read(SkyllaBuffer skyllaBuffer) {
 		key = getMapping().read(skyllaBuffer);
+		value = getMapping().read(skyllaBuffer);
+		expiry = skyllaBuffer.readLong();
 	}
 	
 	@Override
 	public String toString() {
-		return "PacketOutInvalidate{" +
+		return "PacketPut{" +
 			"key=" + key +
+			", value=" + value +
+			", expiry=" + expiry +
 			'}';
 	}
 }
