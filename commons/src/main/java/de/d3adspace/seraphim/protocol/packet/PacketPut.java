@@ -21,15 +21,16 @@
 
 package de.d3adspace.seraphim.protocol.packet;
 
-import de.d3adspace.seraphim.protocol.SeraphimPacket;
+
 import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
+import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 3)
-public class PacketPut extends SeraphimPacket {
+public class PacketPut extends SkyllaPacket {
 	
 	/**
 	 * The key of the value to cache.
@@ -94,15 +95,15 @@ public class PacketPut extends SeraphimPacket {
 	
 	@Override
 	public void write(SkyllaBuffer skyllaBuffer) {
-		getMapping().write(skyllaBuffer, key);
-		getMapping().write(skyllaBuffer, value);
+		skyllaBuffer.writeObject(key);
+		skyllaBuffer.writeObject(value);
 		skyllaBuffer.writeLong(expiry);
 	}
 	
 	@Override
 	public void read(SkyllaBuffer skyllaBuffer) {
-		key = getMapping().read(skyllaBuffer);
-		value = getMapping().read(skyllaBuffer);
+		key = skyllaBuffer.readObject();
+		value = skyllaBuffer.readObject();
 		expiry = skyllaBuffer.readLong();
 	}
 	

@@ -21,8 +21,8 @@
 
 package de.d3adspace.seraphim.protocol.packet;
 
-import de.d3adspace.seraphim.protocol.SeraphimPacket;
 import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
+import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
@@ -31,7 +31,7 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 5)
-public class PacketClear extends SeraphimPacket {
+public class PacketClear extends SkyllaPacket {
 	
 	// Nothing to do here
 	

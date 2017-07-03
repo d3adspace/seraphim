@@ -21,8 +21,8 @@
 
 package de.d3adspace.seraphim.protocol.packet;
 
-import de.d3adspace.seraphim.protocol.SeraphimPacket;
 import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
+import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
@@ -31,7 +31,7 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 4)
-public class PacketGetResponse extends SeraphimPacket {
+public class PacketGetResponse extends SkyllaPacket {
 	
 	/**
 	 * Id of the client side callback
@@ -81,13 +81,13 @@ public class PacketGetResponse extends SeraphimPacket {
 	@Override
 	public void write(SkyllaBuffer skyllaBuffer) {
 		skyllaBuffer.writeInt(callbackId);
-		getMapping().write(skyllaBuffer, value);
+		skyllaBuffer.writeObject(value);
 	}
 	
 	@Override
 	public void read(SkyllaBuffer skyllaBuffer) {
 		callbackId = skyllaBuffer.readInt();
-		value = getMapping().read(skyllaBuffer);
+		value = skyllaBuffer.readObject();
 	}
 	
 	@Override

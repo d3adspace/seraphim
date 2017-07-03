@@ -21,8 +21,9 @@
 
 package de.d3adspace.seraphim.protocol.packet;
 
-import de.d3adspace.seraphim.protocol.SeraphimPacket;
+
 import de.d3adspace.skylla.commons.buffer.SkyllaBuffer;
+import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacket;
 import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 
 /**
@@ -32,7 +33,7 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  * @author Felix 'SasukeKawaii' Klauke
  */
 @SkyllaPacketMeta(id = 2)
-public class PacketInvalidate extends SeraphimPacket {
+public class PacketInvalidate extends SkyllaPacket {
 	
 	/**
 	 * They key to invalidate.
@@ -64,11 +65,11 @@ public class PacketInvalidate extends SeraphimPacket {
 	}
 	
 	public void write(SkyllaBuffer skyllaBuffer) {
-		getMapping().write(skyllaBuffer, key);
+		skyllaBuffer.writeObject(key);
 	}
 	
 	public void read(SkyllaBuffer skyllaBuffer) {
-		key = getMapping().read(skyllaBuffer);
+		key = skyllaBuffer.readObject();
 	}
 	
 	@Override
