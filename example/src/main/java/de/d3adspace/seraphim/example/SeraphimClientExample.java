@@ -31,7 +31,7 @@ import java.util.UUID;
 public class SeraphimClientExample {
 	
 	public static void main(String[] args) {
-		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhsot", 1337);
+		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhost", 1337);
 		
 		UUID uniqueIdKey = UUID.randomUUID();
 		UUID uniqueIdValue = UUID.randomUUID();
