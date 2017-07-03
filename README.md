@@ -1,9 +1,44 @@
 # Seraphim
 
 A simple and lightweight key-value in memory store built on top of 
-https://github.com/D3adspaceEnterprises/skylla
+https://github.com/D3adspaceEnterprises/skylla - Seraphim uses https://github.com/D3adspaceEnterprises/hawkings for local consumer management. The intention is to provide an easy to use in memory store for little network applications. You can also take a look at https://github.com/D3adspaceEnterprises/reincarnation if youre searching for a pub sub service. 
 
-Example:
+# Installation / Usage
+
+- Install [Maven](http://maven.apache.org/download.cgi)
+- Clone this repo
+- Installh: ```mvn clean install```
+
+**Maven dependencies**
+
+_Client:_
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Server:_
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-server</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+_Commons:_
+```xml
+<dependency>
+    <groupId>de.d3adspace</groupId>
+    <artifactId>seraphim-commons</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+# Example:
 ```java
 /*
  * Copyright (c) 2017 D3adspace
