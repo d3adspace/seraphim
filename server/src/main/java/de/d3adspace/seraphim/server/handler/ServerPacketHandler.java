@@ -55,8 +55,9 @@ public class ServerPacketHandler implements PacketHandler {
 	
 	@PacketHandlerMethod
 	public void onPacketGet(SkyllaConnection connection, PacketGet packet) {
+		Object cachedObject = this.cache.get(packet.getKey());
 		PacketGetResponse packetInGetResponse = new PacketGetResponse(packet.getCallbackId(),
-			this.cache.get(packet.getKey()));
+			cachedObject);
 		connection.sendPackets(packetInGetResponse);
 	}
 	
