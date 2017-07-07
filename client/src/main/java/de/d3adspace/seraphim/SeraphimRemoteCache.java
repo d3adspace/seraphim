@@ -32,7 +32,6 @@ import de.d3adspace.seraphim.protocol.packet.PacketPut;
 import de.d3adspace.skylla.client.SkyllaClient;
 import de.d3adspace.skylla.client.SkyllaClientFactory;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
-import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
 import de.d3adspace.skylla.commons.protocol.Protocol;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -53,7 +52,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 		Protocol protocol = new SeraphimProtocol();
 		protocol.registerListener(new SeraphimClientPacketHandler());
 		
-		SkyllaConfig config = new SkyllaConfigBuilder()
+		SkyllaConfig config = SkyllaConfig.newBuilder()
 			.setProtocol(protocol)
 			.setServerHost(serverHost)
 			.setServerPort(serverPort)
@@ -76,10 +75,10 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public ValueType get(KeyType key) {
+		int callbackId = Seraphim.getHawkings().incrementAndGetId();
+		
 		AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
 		CountDownLatch countDownLatch = new CountDownLatch(1);
-		
-		int callbackId = Seraphim.getHawkings().incrementAndGetId();
 		
 		Consumer<PacketGetResponse> consumer = value -> {
 			atomicReference.set(value);
@@ -92,12 +91,18 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 		this.skyllaClient.sendPacket(packet);
 		
 		try {
-			countDownLatch.await(1, TimeUnit.SECONDS);
+			countDownLatch.await(500, TimeUnit.MILLISECONDS);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
-		return (ValueType) atomicReference.get().getValue();
+		PacketGetResponse response = atomicReference.get();
+		
+		if (response == null) {
+			return null;
+		}
+		
+		return (ValueType) response.getValue();
 	}
 	
 	@Override
