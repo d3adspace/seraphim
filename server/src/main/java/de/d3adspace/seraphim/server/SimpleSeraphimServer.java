@@ -25,7 +25,6 @@ import de.d3adspace.seraphim.protocol.SeraphimProtocol;
 import de.d3adspace.seraphim.server.cache.ServerCache;
 import de.d3adspace.seraphim.server.handler.ServerPacketHandler;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
-import de.d3adspace.skylla.commons.config.SkyllaConfigBuilder;
 import de.d3adspace.skylla.commons.protocol.Protocol;
 import de.d3adspace.skylla.server.SkyllaServer;
 import de.d3adspace.skylla.server.SkyllaServerFactory;
@@ -52,7 +51,7 @@ public class SimpleSeraphimServer implements SeraphimServer {
 		Protocol protocol = new SeraphimProtocol();
 		protocol.registerListener(new ServerPacketHandler(serverCache));
 		
-		SkyllaConfig config = new SkyllaConfigBuilder()
+		SkyllaConfig config = SkyllaConfig.newBuilder()
 			.setServerHost(host)
 			.setServerPort(port)
 			.setProtocol(protocol)
