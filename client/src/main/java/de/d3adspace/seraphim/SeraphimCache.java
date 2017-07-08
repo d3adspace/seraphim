@@ -95,7 +95,7 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	
 	@Override
 	public void get(KeyType key, Consumer<ValueType> consumer) {
-	
+		consumer.accept(this.get(key));
 	}
 	
 	@Override
