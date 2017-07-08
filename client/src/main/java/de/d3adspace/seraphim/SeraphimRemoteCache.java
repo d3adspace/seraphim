@@ -49,6 +49,10 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	private final SkyllaClient skyllaClient;
 	
 	SeraphimRemoteCache(String serverHost, int serverPort) {
+		if (serverHost == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		Protocol protocol = new SeraphimProtocol();
 		protocol.registerListener(new SeraphimClientPacketHandler());
 		
@@ -64,17 +68,35 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public void put(KeyType key, ValueType value) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("value cannot be null");
+		}
+		
 		this.put(key, value, -1);
 	}
 	
 	@Override
 	public void put(KeyType key, ValueType value, long timeToLive) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("value cannot be null");
+		}
+		
 		PacketPut packetPut = new PacketPut(key, value, timeToLive);
 		this.skyllaClient.sendPacket(packetPut);
 	}
 	
 	@Override
 	public ValueType get(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		int callbackId = Seraphim.getHawkings().incrementAndGetId();
 		
 		AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
@@ -107,11 +129,19 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	@Override
 	public boolean isPresent(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		return get(key) != null;
 	}
 	
 	@Override
 	public void invalidate(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		PacketInvalidate packet = new PacketInvalidate(key);
 		this.skyllaClient.sendPacket(packet);
 	}

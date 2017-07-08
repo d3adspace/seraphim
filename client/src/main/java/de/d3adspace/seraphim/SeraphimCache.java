@@ -42,11 +42,25 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	
 	@Override
 	public void put(KeyType key, ValueType value) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("value cannot be null");
+		}
+		
 		this.put(key, value, -1);
 	}
 	
 	@Override
 	public void put(KeyType key, ValueType value, long timeToLive) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("value cannot be null");
+		}
+		
 		CacheEntry<ValueType> cacheEntry = new CacheEntry<>(value, timeToLive);
 		
 		this.cache.put(key, cacheEntry);
@@ -54,6 +68,10 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	
 	@Override
 	public ValueType get(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		CacheEntry<ValueType> cacheEntry = this.cache.get(key);
 		
 		if (cacheEntry == null) {
@@ -76,11 +94,19 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 	
 	@Override
 	public boolean isPresent(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		return this.get(key) != null;
 	}
 	
 	@Override
 	public void invalidate(KeyType key) {
+		if (key == null) {
+			throw new IllegalArgumentException("key cannot be null");
+		}
+		
 		this.cache.remove(key);
 	}
 	
