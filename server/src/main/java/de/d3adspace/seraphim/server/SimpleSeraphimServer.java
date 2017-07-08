@@ -48,7 +48,7 @@ public class SimpleSeraphimServer implements SeraphimServer {
 	SimpleSeraphimServer(String host, int port) {
 		ServerCache serverCache = new ServerCache();
 		
-		Protocol protocol = new SeraphimProtocol();
+		Protocol protocol = SeraphimProtocol.getInstance();
 		protocol.registerListener(new ServerPacketHandler(serverCache));
 		
 		SkyllaConfig config = SkyllaConfig.newBuilder()

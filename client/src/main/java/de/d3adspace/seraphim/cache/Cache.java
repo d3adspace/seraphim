@@ -21,6 +21,8 @@
 
 package de.d3adspace.seraphim.cache;
 
+import java.util.function.Consumer;
+
 /**
  * The basic interface for all caches.
  *
@@ -52,6 +54,14 @@ public interface Cache<KeyType, ValueType> {
 	 * @return The value.
 	 */
 	ValueType get(KeyType key);
+	
+	/**
+	 * Get an element from the cache and let it be consumed by the consumer.
+	 *
+	 * @param key The key.
+	 * @param consumer The consumer.
+	 */
+	void get(KeyType key, Consumer<ValueType> consumer);
 	
 	/**
 	 * Check if there is a value for the given key.

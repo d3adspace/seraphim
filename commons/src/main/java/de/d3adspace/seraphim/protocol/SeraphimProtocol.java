@@ -35,11 +35,21 @@ import de.d3adspace.skylla.commons.protocol.Protocol;
  */
 public class SeraphimProtocol extends Protocol {
 	
-	public SeraphimProtocol() {
+	private static SeraphimProtocol instance;
+	
+	private SeraphimProtocol() {
 		this.registerPacket(PacketGet.class);
 		this.registerPacket(PacketInvalidate.class);
 		this.registerPacket(PacketPut.class);
 		this.registerPacket(PacketGetResponse.class);
 		this.registerPacket(PacketClear.class);
+	}
+	
+	public static Protocol getInstance() {
+		if (instance == null) {
+			instance = new SeraphimProtocol();
+		}
+		
+		return instance;
 	}
 }

@@ -50,11 +50,11 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 	
 	SeraphimRemoteCache(String serverHost, int serverPort) {
 		if (serverHost == null) {
-			throw new IllegalArgumentException("key cannot be null");
+			throw new IllegalArgumentException("serverHost cannot be null");
 		}
 		
-		Protocol protocol = new SeraphimProtocol();
-		protocol.registerListener(new SeraphimClientPacketHandler());
+		Protocol protocol = SeraphimProtocol.getInstance();
+		protocol.registerListener(SeraphimClientPacketHandler.getInstance());
 		
 		SkyllaConfig config = SkyllaConfig.newBuilder()
 			.setProtocol(protocol)
@@ -125,6 +125,20 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 		}
 		
 		return (ValueType) response.getValue();
+	}
+	
+	@Override
+	public void get(KeyType key, Consumer<ValueType> consumer) {
+		int callbackId = Seraphim.getHawkings().incrementAndGetId();
+		Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
+			@Override
+			public void accept(PacketGetResponse packetGetResponse) {
+				consumer.accept((ValueType) packetGetResponse.getValue());
+			}
+		});
+		
+		PacketGet packet = new PacketGet(callbackId, key);
+		this.skyllaClient.sendPacket(packet);
 	}
 	
 	@Override

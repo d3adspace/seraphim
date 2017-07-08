@@ -25,6 +25,7 @@ import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.cache.CacheEntry;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
@@ -90,6 +91,11 @@ public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueTy
 		}
 		
 		return cacheEntry.getValue();
+	}
+	
+	@Override
+	public void get(KeyType key, Consumer<ValueType> consumer) {
+	
 	}
 	
 	@Override
