@@ -24,16 +24,15 @@ package de.d3adspace.seraphim;
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
 import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.seraphim.protocol.packet.PacketClear;
-import de.d3adspace.seraphim.protocol.packet.PacketGet;
-import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
-import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
-import de.d3adspace.seraphim.protocol.packet.PacketPut;
+import de.d3adspace.seraphim.protocol.packet.*;
 import de.d3adspace.skylla.client.SkyllaClient;
 import de.d3adspace.skylla.client.SkyllaClientFactory;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
 import de.d3adspace.skylla.commons.protocol.Protocol;
+
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
@@ -126,20 +125,24 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
 		
 		return (ValueType) response.getValue();
 	}
-	
-	@Override
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+    @Override
 	public void get(KeyType key, Consumer<ValueType> consumer) {
-		int callbackId = Seraphim.getHawkings().incrementAndGetId();
-		Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
-			@Override
-			public void accept(PacketGetResponse packetGetResponse) {
-				consumer.accept((ValueType) packetGetResponse.getValue());
-			}
-		});
-		
-		PacketGet packet = new PacketGet(callbackId, key);
-		this.skyllaClient.sendPacket(packet);
-	}
+        executorService.execute(() -> {
+            int callbackId = Seraphim.getHawkings().incrementAndGetId();
+            Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
+                @Override
+                public void accept(PacketGetResponse packetGetResponse) {
+                    consumer.accept((ValueType) packetGetResponse.getValue());
+                }
+            });
+
+            PacketGet packet = new PacketGet(callbackId, key);
+            skyllaClient.sendPacket(packet);
+        });
+    }
 	
 	@Override
 	public boolean isPresent(KeyType key) {

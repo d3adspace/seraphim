@@ -63,7 +63,7 @@ public class PacketInvalidate extends SkyllaPacket {
 	public Object getKey() {
 		return key;
 	}
-	
+
 	public void write(SkyllaBuffer skyllaBuffer) {
 		skyllaBuffer.writeObject(key);
 	}
