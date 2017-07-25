@@ -34,48 +34,48 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  */
 @SkyllaPacketMeta(id = 2)
 public class PacketInvalidate extends SkyllaPacket {
-	
-	/**
-	 * They key to invalidate.
-	 */
-	private Object key;
-	
-	/**
-	 * Create a request.
-	 *
-	 * @param key The key.
-	 */
-	public PacketInvalidate(Object key) {
-		this.key = key;
-	}
-	
-	/**
-	 * Packet Constructor.
-	 */
-	public PacketInvalidate() {
-	}
-	
-	/**
-	 * Get the key of the object to invalidate.
-	 *
-	 * @return The key.
-	 */
-	public Object getKey() {
-		return key;
-	}
 
-	public void write(SkyllaBuffer skyllaBuffer) {
-		skyllaBuffer.writeObject(key);
-	}
-	
-	public void read(SkyllaBuffer skyllaBuffer) {
-		key = skyllaBuffer.readObject();
-	}
-	
-	@Override
-	public String toString() {
-		return "PacketInvalidate{" +
-			"key=" + key +
-			'}';
-	}
+    /**
+     * They key to invalidate.
+     */
+    private Object key;
+
+    /**
+     * Create a request.
+     *
+     * @param key The key.
+     */
+    public PacketInvalidate(Object key) {
+        this.key = key;
+    }
+
+    /**
+     * Packet Constructor.
+     */
+    public PacketInvalidate() {
+    }
+
+    /**
+     * Get the key of the object to invalidate.
+     *
+     * @return The key.
+     */
+    public Object getKey() {
+        return key;
+    }
+
+    public void write(SkyllaBuffer skyllaBuffer) {
+        skyllaBuffer.writeObject(key);
+    }
+
+    public void read(SkyllaBuffer skyllaBuffer) {
+        key = skyllaBuffer.readObject();
+    }
+
+    @Override
+    public String toString() {
+        return "PacketInvalidate{" +
+                "key=" + key +
+                '}';
+    }
 }

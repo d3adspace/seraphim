@@ -26,23 +26,23 @@ import de.d3adspace.seraphim.cache.Cache;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimCacheTest {
-	
-	public static void main(String[] args) {
-		Cache<Integer, Integer> seraphimCache = CacheFactory.createCache();
-		
-		seraphimCache.put(6, 36, 5);
-		seraphimCache.put(5, 25);
-		
-		System.out.println(seraphimCache.get(5));
-		System.out.println(seraphimCache.get(6));
-		
-		try {
-			Thread.sleep(1000 * 4);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println(seraphimCache.get(5));
-		System.out.println(seraphimCache.get(6));
-	}
+
+    public static void main(String[] args) {
+        Cache<Integer, Integer> seraphimCache = CacheFactory.createCache();
+
+        seraphimCache.put(6, 36, 5);
+        seraphimCache.put(5, 25);
+
+        System.out.println(seraphimCache.get(5));
+        System.out.println(seraphimCache.get(6));
+
+        try {
+            Thread.sleep(1000 * 4);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(seraphimCache.get(5));
+        System.out.println(seraphimCache.get(6));
+    }
 }

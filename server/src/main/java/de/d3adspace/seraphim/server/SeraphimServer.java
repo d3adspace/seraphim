@@ -25,14 +25,14 @@ package de.d3adspace.seraphim.server;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public interface SeraphimServer {
-	
-	/**
-	 * Start the server.
-	 */
-	void start();
-	
-	/**
-	 * Stop the server.
-	 */
-	void stop();
+
+    /**
+     * Start the server.
+     */
+    void start();
+
+    /**
+     * Stop the server.
+     */
+    void stop();
 }

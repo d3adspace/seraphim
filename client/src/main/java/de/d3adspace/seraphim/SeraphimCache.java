@@ -23,6 +23,7 @@ package de.d3adspace.seraphim;
 
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.cache.CacheEntry;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -31,93 +32,93 @@ import java.util.function.Consumer;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
-	
-	/**
-	 * Underlying Map.
-	 */
-	private final Map<KeyType, CacheEntry<ValueType>> cache;
-	
-	SeraphimCache() {
-		this.cache = new ConcurrentHashMap<>();
-	}
-	
-	@Override
-	public void put(KeyType key, ValueType value) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
-		if (value == null) {
-			throw new IllegalArgumentException("value cannot be null");
-		}
-		
-		this.put(key, value, -1);
-	}
-	
-	@Override
-	public void put(KeyType key, ValueType value, long timeToLive) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
-		if (value == null) {
-			throw new IllegalArgumentException("value cannot be null");
-		}
-		
-		CacheEntry<ValueType> cacheEntry = new CacheEntry<>(value, timeToLive);
-		
-		this.cache.put(key, cacheEntry);
-	}
-	
-	@Override
-	public ValueType get(KeyType key) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
-		
-		CacheEntry<ValueType> cacheEntry = this.cache.get(key);
-		
-		if (cacheEntry == null) {
-			return null;
-		}
-		
-		long expire = cacheEntry.getExpire();
-		
-		if (expire != -1) {
-			long entrance = cacheEntry.getEntrance();
-			
-			if ((System.currentTimeMillis() - entrance) > expire) {
-				this.invalidate(key);
-				return null;
-			}
-		}
-		
-		return cacheEntry.getValue();
-	}
-	
-	@Override
-	public void get(KeyType key, Consumer<ValueType> consumer) {
-		consumer.accept(this.get(key));
-	}
-	
-	@Override
-	public boolean isPresent(KeyType key) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
-		
-		return this.get(key) != null;
-	}
-	
-	@Override
-	public void invalidate(KeyType key) {
-		if (key == null) {
-			throw new IllegalArgumentException("key cannot be null");
-		}
-		
-		this.cache.remove(key);
-	}
-	
-	@Override
-	public void invalidateAll() {
-		this.cache.clear();
-	}
+
+    /**
+     * Underlying Map.
+     */
+    private final Map<KeyType, CacheEntry<ValueType>> cache;
+
+    SeraphimCache() {
+        this.cache = new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public void put(KeyType key, ValueType value) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
+        if (value == null) {
+            throw new IllegalArgumentException("value cannot be null");
+        }
+
+        this.put(key, value, -1);
+    }
+
+    @Override
+    public void put(KeyType key, ValueType value, long timeToLive) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
+        if (value == null) {
+            throw new IllegalArgumentException("value cannot be null");
+        }
+
+        CacheEntry<ValueType> cacheEntry = new CacheEntry<>(value, timeToLive);
+
+        this.cache.put(key, cacheEntry);
+    }
+
+    @Override
+    public ValueType get(KeyType key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
+
+        CacheEntry<ValueType> cacheEntry = this.cache.get(key);
+
+        if (cacheEntry == null) {
+            return null;
+        }
+
+        long expire = cacheEntry.getExpire();
+
+        if (expire != -1) {
+            long entrance = cacheEntry.getEntrance();
+
+            if ((System.currentTimeMillis() - entrance) > expire) {
+                this.invalidate(key);
+                return null;
+            }
+        }
+
+        return cacheEntry.getValue();
+    }
+
+    @Override
+    public void get(KeyType key, Consumer<ValueType> consumer) {
+        consumer.accept(this.get(key));
+    }
+
+    @Override
+    public boolean isPresent(KeyType key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
+
+        return this.get(key) != null;
+    }
+
+    @Override
+    public void invalidate(KeyType key) {
+        if (key == null) {
+            throw new IllegalArgumentException("key cannot be null");
+        }
+
+        this.cache.remove(key);
+    }
+
+    @Override
+    public void invalidateAll() {
+        this.cache.clear();
+    }
 }

@@ -22,6 +22,7 @@
 package de.d3adspace.seraphim.server.cache;
 
 import de.d3adspace.seraphim.cache.CacheEntry;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -31,70 +32,70 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Felix 'SasukeKawaii' Klauke, Nathalie0hneHerz
  */
 public class ServerCache {
-	
-	/**
-	 * Underlying Map
-	 */
-	private final Map<Object, CacheEntry> cache;
-	
-	/**
-	 * Create a new cache
-	 */
-	public ServerCache() {
-		this.cache = new ConcurrentHashMap<>();
-	}
-	
-	/**
-	 * Retrieve an object from the cache.
-	 *
-	 * @param key The key.
-	 * @return The value.
-	 */
-	public Object get(Object key) {
-		CacheEntry cacheEntry = this.cache.get(key);
-		
-		if (cacheEntry == null) {
-			return null;
-		}
-		
-		// Check expire
-		long expire = cacheEntry.getExpire();
-		
-		if (expire != -1) {
-			long entrance = cacheEntry.getEntrance();
-			
-			if ((System.currentTimeMillis() - entrance) > expire) {
-				this.cache.remove(key);
-				return null;
-			}
-		}
-		
-		return cacheEntry.getValue();
-	}
-	
-	/**
-	 * Remove an object from the cache
-	 *
-	 * @param key The key.
-	 */
-	public void remove(Object key) {
-		this.cache.remove(key);
-	}
-	
-	/**
-	 * Add a new object to the cache.
-	 *
-	 * @param key The key.
-	 * @param cacheEntry The entry in the cache.
-	 */
-	public void put(Object key, CacheEntry cacheEntry) {
-		this.cache.put(key, cacheEntry);
-	}
-	
-	/**
-	 * Removes all elements from the cache.
-	 */
-	public void invalidateAll() {
-		this.cache.clear();
-	}
+
+    /**
+     * Underlying Map
+     */
+    private final Map<Object, CacheEntry> cache;
+
+    /**
+     * Create a new cache
+     */
+    public ServerCache() {
+        this.cache = new ConcurrentHashMap<>();
+    }
+
+    /**
+     * Retrieve an object from the cache.
+     *
+     * @param key The key.
+     * @return The value.
+     */
+    public Object get(Object key) {
+        CacheEntry cacheEntry = this.cache.get(key);
+
+        if (cacheEntry == null) {
+            return null;
+        }
+
+        // Check expire
+        long expire = cacheEntry.getExpire();
+
+        if (expire != -1) {
+            long entrance = cacheEntry.getEntrance();
+
+            if ((System.currentTimeMillis() - entrance) > expire) {
+                this.cache.remove(key);
+                return null;
+            }
+        }
+
+        return cacheEntry.getValue();
+    }
+
+    /**
+     * Remove an object from the cache
+     *
+     * @param key The key.
+     */
+    public void remove(Object key) {
+        this.cache.remove(key);
+    }
+
+    /**
+     * Add a new object to the cache.
+     *
+     * @param key        The key.
+     * @param cacheEntry The entry in the cache.
+     */
+    public void put(Object key, CacheEntry cacheEntry) {
+        this.cache.put(key, cacheEntry);
+    }
+
+    /**
+     * Removes all elements from the cache.
+     */
+    public void invalidateAll() {
+        this.cache.clear();
+    }
 }

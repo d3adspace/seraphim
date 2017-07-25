@@ -26,15 +26,15 @@ import de.d3adspace.seraphim.cache.Cache;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimRemoteCacheTest {
-	
-	public static void main(String[] args) {
-		Cache<String, String> cache = CacheFactory.connectToRemoteCache("localhost", 1337);
-		cache.put("Test", "Nein.");
-		
-		System.out.println(cache.get("Test"));
-		
-		cache.invalidate("Test");
-		
-		System.out.println(cache.isPresent("Test"));
-	}
+
+    public static void main(String[] args) {
+        Cache<String, String> cache = CacheFactory.connectToRemoteCache("localhost", 1337);
+        cache.put("Test", "Nein.");
+
+        System.out.println(cache.get("Test"));
+
+        cache.invalidate("Test");
+
+        System.out.println(cache.isPresent("Test"));
+    }
 }

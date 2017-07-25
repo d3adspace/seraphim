@@ -33,67 +33,67 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  */
 @SkyllaPacketMeta(id = 1)
 public class PacketGet extends SkyllaPacket {
-	
-	/**
-	 * The client side callbackId.
-	 */
-	private int callbackId;
-	
-	/**
-	 * The key of the value to retrieve.
-	 */
-	private Object key;
-	
-	/**
-	 * Create a new request.
-	 *
-	 * @param callbackId The callbackId
-	 * @param key The key.
-	 */
-	public PacketGet(int callbackId, Object key) {
-		this.callbackId = callbackId;
-		this.key = key;
-	}
-	
-	/**
-	 * Packet constructor
-	 */
-	public PacketGet() {
-	}
-	
-	/**
-	 * Get the key of the object to retrieve.
-	 *
-	 * @return The key.
-	 */
-	public Object getKey() {
-		return key;
-	}
-	
-	/**
-	 * Get the client side callback id
-	 *
-	 * @return The callbackId.
-	 */
-	public int getCallbackId() {
-		return callbackId;
-	}
-	
-	public void write(SkyllaBuffer skyllaBuffer) {
-		skyllaBuffer.writeInt(callbackId);
-		skyllaBuffer.writeObject(key);
-	}
-	
-	public void read(SkyllaBuffer skyllaBuffer) {
-		callbackId = skyllaBuffer.readInt();
-		key = skyllaBuffer.readObject();
-	}
-	
-	@Override
-	public String toString() {
-		return "PacketGet{" +
-			"callbackId=" + callbackId +
-			", key=" + key +
-			'}';
-	}
+
+    /**
+     * The client side callbackId.
+     */
+    private int callbackId;
+
+    /**
+     * The key of the value to retrieve.
+     */
+    private Object key;
+
+    /**
+     * Create a new request.
+     *
+     * @param callbackId The callbackId
+     * @param key        The key.
+     */
+    public PacketGet(int callbackId, Object key) {
+        this.callbackId = callbackId;
+        this.key = key;
+    }
+
+    /**
+     * Packet constructor
+     */
+    public PacketGet() {
+    }
+
+    /**
+     * Get the key of the object to retrieve.
+     *
+     * @return The key.
+     */
+    public Object getKey() {
+        return key;
+    }
+
+    /**
+     * Get the client side callback id
+     *
+     * @return The callbackId.
+     */
+    public int getCallbackId() {
+        return callbackId;
+    }
+
+    public void write(SkyllaBuffer skyllaBuffer) {
+        skyllaBuffer.writeInt(callbackId);
+        skyllaBuffer.writeObject(key);
+    }
+
+    public void read(SkyllaBuffer skyllaBuffer) {
+        callbackId = skyllaBuffer.readInt();
+        key = skyllaBuffer.readObject();
+    }
+
+    @Override
+    public String toString() {
+        return "PacketGet{" +
+                "callbackId=" + callbackId +
+                ", key=" + key +
+                '}';
+    }
 }

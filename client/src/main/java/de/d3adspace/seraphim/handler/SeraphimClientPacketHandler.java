@@ -31,22 +31,22 @@ import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimClientPacketHandler implements PacketHandler {
-	
-	private static SeraphimClientPacketHandler instance;
-	
-	private SeraphimClientPacketHandler() {
-	
-	}
-	
-	public static SeraphimClientPacketHandler getInstance() {
-		if (instance == null) {
-			instance = new SeraphimClientPacketHandler();
-		}
-		return instance;
-	}
-	
-	@PacketHandlerMethod
-	public void onPacketGet(SkyllaConnection connection, PacketGetResponse packet) {
-		Seraphim.getHawkings().invokeConsumer(packet.getCallbackId(), packet);
-	}
+
+    private static SeraphimClientPacketHandler instance;
+
+    private SeraphimClientPacketHandler() {
+
+    }
+
+    public static SeraphimClientPacketHandler getInstance() {
+        if (instance == null) {
+            instance = new SeraphimClientPacketHandler();
+        }
+        return instance;
+    }
+
+    @PacketHandlerMethod
+    public void onPacketGet(SkyllaConnection connection, PacketGetResponse packet) {
+        Seraphim.getHawkings().invokeConsumer(packet.getCallbackId(), packet);
+    }
 }

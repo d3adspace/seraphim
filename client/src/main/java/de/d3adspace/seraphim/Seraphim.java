@@ -27,18 +27,18 @@ import de.d3adspace.hawkings.Hawkings;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class Seraphim {
-	
-	/**
-	 * Hawkings instance.
-	 */
-	private static Hawkings HAWKINGS = new Hawkings<>();
-	
-	/**
-	 * Get the hawkings instance.
-	 *
-	 * @return The hawkings.
-	 */
-	public static Hawkings getHawkings() {
-		return HAWKINGS;
-	}
+
+    /**
+     * Hawkings instance.
+     */
+    private static Hawkings HAWKINGS = new Hawkings<>();
+
+    /**
+     * Get the hawkings instance.
+     *
+     * @return The hawkings.
+     */
+    public static Hawkings getHawkings() {
+        return HAWKINGS;
+    }
 }

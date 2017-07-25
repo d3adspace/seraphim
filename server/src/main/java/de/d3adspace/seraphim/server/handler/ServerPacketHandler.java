@@ -22,11 +22,7 @@
 package de.d3adspace.seraphim.server.handler;
 
 import de.d3adspace.seraphim.cache.CacheEntry;
-import de.d3adspace.seraphim.protocol.packet.PacketClear;
-import de.d3adspace.seraphim.protocol.packet.PacketGet;
-import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
-import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
-import de.d3adspace.seraphim.protocol.packet.PacketPut;
+import de.d3adspace.seraphim.protocol.packet.*;
 import de.d3adspace.seraphim.server.cache.ServerCache;
 import de.d3adspace.skylla.commons.connection.SkyllaConnection;
 import de.d3adspace.skylla.commons.protocol.handler.PacketHandler;
@@ -36,33 +32,33 @@ import de.d3adspace.skylla.commons.protocol.handler.PacketHandlerMethod;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class ServerPacketHandler implements PacketHandler {
-	
-	private final ServerCache cache;
-	
-	public ServerPacketHandler(ServerCache cache) {
-		this.cache = cache;
-	}
-	
-	@PacketHandlerMethod
-	public void onPacketPut(SkyllaConnection connection, PacketPut packet) {
-		this.cache.put(packet.getKey(), new CacheEntry(packet.getValue(), packet.getExpiry()));
-	}
-	
-	@PacketHandlerMethod
-	public void onPacketInvalidate(SkyllaConnection connection, PacketInvalidate packet) {
-		this.cache.remove(packet.getKey());
-	}
-	
-	@PacketHandlerMethod
-	public void onPacketGet(SkyllaConnection connection, PacketGet packet) {
-		Object cachedObject = this.cache.get(packet.getKey());
-		PacketGetResponse packetInGetResponse = new PacketGetResponse(packet.getCallbackId(),
-			cachedObject);
-		connection.sendPackets(packetInGetResponse);
-	}
-	
-	@PacketHandlerMethod
-	public void onPacketClear(SkyllaConnection connection, PacketClear packet) {
-		this.cache.invalidateAll();
-	}
+
+    private final ServerCache cache;
+
+    public ServerPacketHandler(ServerCache cache) {
+        this.cache = cache;
+    }
+
+    @PacketHandlerMethod
+    public void onPacketPut(SkyllaConnection connection, PacketPut packet) {
+        this.cache.put(packet.getKey(), new CacheEntry(packet.getValue(), packet.getExpiry()));
+    }
+
+    @PacketHandlerMethod
+    public void onPacketInvalidate(SkyllaConnection connection, PacketInvalidate packet) {
+        this.cache.remove(packet.getKey());
+    }
+
+    @PacketHandlerMethod
+    public void onPacketGet(SkyllaConnection connection, PacketGet packet) {
+        Object cachedObject = this.cache.get(packet.getKey());
+        PacketGetResponse packetInGetResponse = new PacketGetResponse(packet.getCallbackId(),
+                cachedObject);
+        connection.sendPackets(packetInGetResponse);
+    }
+
+    @PacketHandlerMethod
+    public void onPacketClear(SkyllaConnection connection, PacketClear packet) {
+        this.cache.invalidateAll();
+    }
 }

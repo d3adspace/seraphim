@@ -23,21 +23,73 @@ package de.d3adspace.seraphim.example;
 
 import de.d3adspace.seraphim.CacheFactory;
 import de.d3adspace.seraphim.cache.Cache;
+
 import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimClientExample {
-	
-	public static void main(String[] args) {
-		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhost", 1337);
+
+    public static void main(String[] args) {
+        final Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("127.0.0.1", 1337);
+
+        final UUID uniqueIdKey = UUID.randomUUID();
+        UUID uniqueIdValue = UUID.randomUUID();
+
+        cache.put(uniqueIdKey, uniqueIdValue);
+
+        cache.get(uniqueIdKey, new Consumer<UUID>() {
+            @Override
+            public void accept(UUID uuid) {
+                System.out.println(uuid);
+            }
+        });
+
+        double fullStart = System.currentTimeMillis();
+
+        double trys = 100000;
+
+        final int[] fails = {0};
+
+        for (int i = 0; i < trys; i++) {
+
+        }
+
+        final int[] i = {0};
+
+        while (i[0] < trys + 1) {
+            final long start = System.currentTimeMillis();
+
+            UUID uuid = cache.get(uniqueIdKey);
+
+            if (uuid == null) fails[0]++;
+
+            System.out.println("Try " + i[0] + " took " + (System.currentTimeMillis() - start));
+
+            i[0]++;
+        }
+
+        double totalTime = System.currentTimeMillis() - fullStart;
+        System.out.println("Average: " + totalTime / trys);
+        System.out.println("Fails: " + fails[0]);
+        System.out.println("Took " + totalTime + "ms for a total of " + trys + " requests.");
+
+		/*System.out.println("Now doing async shit.");
+
+		final int[] times = {0};
 		
-		UUID uniqueIdKey = UUID.randomUUID();
-		UUID uniqueIdValue = UUID.randomUUID();
-		
-		cache.put(uniqueIdKey, uniqueIdValue);
-		
-		System.out.println(cache.get(uniqueIdKey));
-	}
+		for (int j = 0; j < 100000; j++) {
+			cache.get(uniqueIdKey, new Consumer<UUID>() {
+				@Override
+				public void accept(UUID uuid) {
+					System.out.println("Uff: " + uuid);
+					times[0]++;
+					
+					System.out.println(times[0]);
+				}
+			});
+		}*/
+    }
 }

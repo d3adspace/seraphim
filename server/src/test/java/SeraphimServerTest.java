@@ -26,8 +26,8 @@ import de.d3adspace.seraphim.server.SeraphimServerFactory;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public class SeraphimServerTest {
-	
-	public static void main(String[] args) {
-		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 8080);
-	}
+
+    public static void main(String[] args) {
+        SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 8080);
+    }
 }

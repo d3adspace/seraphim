@@ -29,57 +29,57 @@ import java.util.function.Consumer;
  * @author Felix 'SasukeKawaii' Klauke
  */
 public interface Cache<KeyType, ValueType> {
-	
-	/**
-	 * Store an element in the cache with an unlimited time to live.
-	 *
-	 * @param key The key.
-	 * @param value The value.
-	 */
-	void put(KeyType key, ValueType value);
-	
-	/**
-	 * Store an element in the cache with the given time to live.
-	 *
-	 * @param key The key.
-	 * @param value The value.
-	 * @param timeToLive The ttl.
-	 */
-	void put(KeyType key, ValueType value, long timeToLive);
-	
-	/**
-	 * Retrieve an element from the cache or null if it isnt present
-	 *
-	 * @param key The key.
-	 * @return The value.
-	 */
-	ValueType get(KeyType key);
-	
-	/**
-	 * Get an element from the cache and let it be consumed by the consumer.
-	 *
-	 * @param key The key.
-	 * @param consumer The consumer.
-	 */
-	void get(KeyType key, Consumer<ValueType> consumer);
-	
-	/**
-	 * Check if there is a value for the given key.
-	 *
-	 * @param key The key.
-	 * @return If there is a value for the key.
-	 */
-	boolean isPresent(KeyType key);
-	
-	/**
-	 * Remove an element from the cache.
-	 *
-	 * @param key The key.
-	 */
-	void invalidate(KeyType key);
-	
-	/**
-	 * Removes all elements from the cache.
-	 */
-	void invalidateAll();
+
+    /**
+     * Store an element in the cache with an unlimited time to live.
+     *
+     * @param key   The key.
+     * @param value The value.
+     */
+    void put(KeyType key, ValueType value);
+
+    /**
+     * Store an element in the cache with the given time to live.
+     *
+     * @param key        The key.
+     * @param value      The value.
+     * @param timeToLive The ttl.
+     */
+    void put(KeyType key, ValueType value, long timeToLive);
+
+    /**
+     * Retrieve an element from the cache or null if it isnt present
+     *
+     * @param key The key.
+     * @return The value.
+     */
+    ValueType get(KeyType key);
+
+    /**
+     * Get an element from the cache and let it be consumed by the consumer.
+     *
+     * @param key      The key.
+     * @param consumer The consumer.
+     */
+    void get(KeyType key, Consumer<ValueType> consumer);
+
+    /**
+     * Check if there is a value for the given key.
+     *
+     * @param key The key.
+     * @return If there is a value for the key.
+     */
+    boolean isPresent(KeyType key);
+
+    /**
+     * Remove an element from the cache.
+     *
+     * @param key The key.
+     */
+    void invalidate(KeyType key);
+
+    /**
+     * Removes all elements from the cache.
+     */
+    void invalidateAll();
 }

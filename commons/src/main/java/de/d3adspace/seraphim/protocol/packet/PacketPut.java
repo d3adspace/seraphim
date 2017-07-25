@@ -31,88 +31,88 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
  */
 @SkyllaPacketMeta(id = 3)
 public class PacketPut extends SkyllaPacket {
-	
-	/**
-	 * The key of the value to cache.
-	 */
-	private Object key;
-	
-	/**
-	 * The value to cache.
-	 */
-	private Object value;
-	
-	/**
-	 * Time to live for the value.
-	 */
-	private long expiry;
-	
-	/**
-	 * Create a new Request.
-	 *
-	 * @param key The key.
-	 * @param value The value.
-	 * @param expiry The time to live.
-	 */
-	public PacketPut(Object key, Object value, long expiry) {
-		this.key = key;
-		this.value = value;
-		this.expiry = expiry;
-	}
-	
-	/**
-	 * Packet Constructor
-	 */
-	public PacketPut() {
-	}
-	
-	/**
-	 * Get the key of the object to cache.
-	 *
-	 * @return The key.
-	 */
-	public Object getKey() {
-		return key;
-	}
-	
-	/**
-	 * Get the value to cache.
-	 *
-	 * @return The value.
-	 */
-	public Object getValue() {
-		return value;
-	}
-	
-	/**
-	 * Get the time to live of the value.
-	 *
-	 * @return The time to live.
-	 */
-	public long getExpiry() {
-		return expiry;
-	}
-	
-	@Override
-	public void write(SkyllaBuffer skyllaBuffer) {
-		skyllaBuffer.writeObject(key);
-		skyllaBuffer.writeObject(value);
-		skyllaBuffer.writeLong(expiry);
-	}
-	
-	@Override
-	public void read(SkyllaBuffer skyllaBuffer) {
-		key = skyllaBuffer.readObject();
-		value = skyllaBuffer.readObject();
-		expiry = skyllaBuffer.readLong();
-	}
-	
-	@Override
-	public String toString() {
-		return "PacketPut{" +
-			"key=" + key +
-			", value=" + value +
-			", expiry=" + expiry +
-			'}';
-	}
+
+    /**
+     * The key of the value to cache.
+     */
+    private Object key;
+
+    /**
+     * The value to cache.
+     */
+    private Object value;
+
+    /**
+     * Time to live for the value.
+     */
+    private long expiry;
+
+    /**
+     * Create a new Request.
+     *
+     * @param key    The key.
+     * @param value  The value.
+     * @param expiry The time to live.
+     */
+    public PacketPut(Object key, Object value, long expiry) {
+        this.key = key;
+        this.value = value;
+        this.expiry = expiry;
+    }
+
+    /**
+     * Packet Constructor
+     */
+    public PacketPut() {
+    }
+
+    /**
+     * Get the key of the object to cache.
+     *
+     * @return The key.
+     */
+    public Object getKey() {
+        return key;
+    }
+
+    /**
+     * Get the value to cache.
+     *
+     * @return The value.
+     */
+    public Object getValue() {
+        return value;
+    }
+
+    /**
+     * Get the time to live of the value.
+     *
+     * @return The time to live.
+     */
+    public long getExpiry() {
+        return expiry;
+    }
+
+    @Override
+    public void write(SkyllaBuffer skyllaBuffer) {
+        skyllaBuffer.writeObject(key);
+        skyllaBuffer.writeObject(value);
+        skyllaBuffer.writeLong(expiry);
+    }
+
+    @Override
+    public void read(SkyllaBuffer skyllaBuffer) {
+        key = skyllaBuffer.readObject();
+        value = skyllaBuffer.readObject();
+        expiry = skyllaBuffer.readLong();
+    }
+
+    @Override
+    public String toString() {
+        return "PacketPut{" +
+                "key=" + key +
+                ", value=" + value +
+                ", expiry=" + expiry +
+                '}';
+    }
 }
