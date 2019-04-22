@@ -97,8 +97,6 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
             throw new IllegalArgumentException("key cannot be null");
         }
 
-        int callbackId = Seraphim.getHawkings().incrementAndGetId();
-
         AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
         CountDownLatch countDownLatch = new CountDownLatch(1);
 
@@ -107,7 +105,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
             countDownLatch.countDown();
         };
 
-        Seraphim.getHawkings().registerConsumer(consumer);
+        int callbackId = Seraphim.getHawkings().registerConsumer(consumer);
 
         PacketGet packet = new PacketGet(callbackId, key);
         this.skyllaClient.sendPacket(packet);
@@ -130,8 +128,7 @@ public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, V
     @Override
     public void get(KeyType key, Consumer<ValueType> consumer) {
         executorService.execute(() -> {
-            int callbackId = Seraphim.getHawkings().incrementAndGetId();
-            Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
+            int callbackId = Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
                 @Override
                 public void accept(PacketGetResponse packetGetResponse) {
                     consumer.accept((ValueType) packetGetResponse.getValue());
