@@ -31,6 +31,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>seraphim-commons</artifactId>
+    <version>1.0.0</version>
+
     <build>
         <plugins>
             <plugin>
@@ -64,7 +66,7 @@
 
         <!-- Skylla Commons -->
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.skylla</groupId>
             <artifactId>skylla-commons</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>

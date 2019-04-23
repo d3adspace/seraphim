@@ -31,6 +31,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>seraphim-example</artifactId>
+    <version>1.0.0</version>
+
     <build>
         <plugins>
             <plugin>
@@ -46,12 +48,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.seraphim</groupId>
             <artifactId>seraphim-server</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.seraphim</groupId>
             <artifactId>seraphim-client</artifactId>
             <version>1.0.0</version>
         </dependency>
