@@ -24,5 +24,7 @@ WORKDIR /opt/app
 
 COPY --from=build server/target/seraphim-server-1.0-SNAPSHOT.jar /opt/app/server.jar
 
+EXPOSE 8080
+
 ENTRYPOINT ["java", "-jar", "server.jar" ]
 
