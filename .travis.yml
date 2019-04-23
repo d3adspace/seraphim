@@ -1,0 +1,39 @@
+################
+### Language ###
+################
+language: java
+
+###########
+### JDK ###
+###########
+jdk:
+  - oraclejdk8
+
+#####################
+### Notifications ###
+#####################
+notifications:
+  email: false
+
+####################
+### Build script ###
+####################
+script:
+  - mvn clean test compile package install
+
+##################
+### Deployment ###
+##################
+deploy:
+  provider: script
+  script: mvn deploy --settings deploy/maven-settings.xml
+  on:
+    tags: true
+
+###################
+### Environment ###
+###################
+env:
+  global:
+  - secure: cag/56D81ahihBiOwIoCAxqbNFbmzBmeFei4YSe0RPRoIvP2clRMMjDw/8ZqTOB0SuaL26sqiDb/I5AtVZ101J7BkqpfYjj4KjD/2jemezHiw07lGvCIcfoBM0udVrEhu+EDp5LhousBmGdHtNk5JqR8dF+5w4Suwqi5eUK1XBIdB8UwLCLO6Q8uVyjyx4S7ERDa7/K+MItjGuc5pUWemqV4j1Gdxv3Hjtoai7gHA3RmLBSOGooZiLRVAq9eRo0XrZuVBbLceI9ON3soJanrlhHq926U0+D7ZoDL8Q/08jiI2deEEynXbaWZrQaGsfqy/JXhCB97dVcqXdbxDnctLR30r6+fxobSM/FECNeSJ04sxwBJuxFzHL3yBntMedA+nVSJrQ9S3wvzNrZzqS/2PBpu/y2hn6dv/c343ROWmnEUMVMJTHbkADFkX+c8f9xBvtbs9z1BfMB02ZCgZeIJQhatFVxsUFO0/YtNtjUOY2u8RnMJme0GQ0z/kumrLQQHPFAUh4s1WOeCX28Yzu8opnfbvpQj/aLblnJXEulNRq+k4UjEch4rUhXxAqqqjUhRjP8VM78EWLs9xa7QzUbPPL/pr65c9kfjyxIpc5u0Sal9Rq/lQRzrxJZ2Ce2+QmCyD9+Q4n2D4cAExfFS6FK+k/eeqJ7+RsRM8O/9OeG2yYQ=
+  - secure: c+Myb/cZPoqe1nuwLNgkhJwQZujEFXqpslLrXrS8YtpM002IW/Rt+NLQnbQKvXZExuXo5lTAq1WiZm8rt4+EtT4jh8g7j83Tr4z6mC2GK9d3ccmwTSfgZqytUFEl+i1XKdjA9vaPiX/jsQi1TUm8lXyPiOFEfkZHxcBOoBBwE3Wguq6nBMiDkYJkKxGsq1XT5lGHrdEdYtwfFv6wqGkWxomTENp7LZLWsLXCuCZ3f/dNZoTSj+yYXEAdpDCmIg6UAfaNVEfus7Hcms8aXYZoVYkeKkofMUm8X92HYKjB5cgZDVVZN6kyFH8b2sEzR1/uVNPSFcl8DipOcv4FRqxmSPKON1HxTjF/YiZWLer7QEZWcDUOL5gzcBANx4BU0EC5rXvkuWeOabb0viaR0KY9jhTXrLJJnpApRJEew27qRaDlYmP63+K/SDsncHKeCPhK05Hel5+Z8xWokvYoWct9Quyy/me/rKexxOkUQS1VzmL/tFu1cENTmSzvzoGCnBFdcS8qa4WeiruwH8O23lwZ5xK/xQU5fRs+JSQQgTsMx8fdPVwFD5JLQ4cDcLGOZDlrFVbqUIbgbnZ0u57RN94tceaUupDq9SZcaL10DkZA5f6y97xmAkov/QHVUSrqkP2XnPnO5UZZNTbzqzR1AKfJ8XaRXAWJCLvWDwkNhwRPv54=

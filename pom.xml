@@ -30,6 +30,20 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
+    <distributionManagement>
+        <repository>
+            <id>klauke-enterprises-maven-releases</id>
+            <name>Klauke Enterprises Maven Releases</name>
+            <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>klauke-enterprises-maven-snapshots</id>
+            <name>Klauke Enterprises Maven Snapshots</name>
+            <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <repositories>
         <repository>
             <id>klauke-enterprises-maven-releases</id>
