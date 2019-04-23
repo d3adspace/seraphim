@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 public class SeraphimClientExample {
 
     public static void main(String[] args) {
-        final Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("127.0.0.1", 1337);
+        final Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("127.0.0.1", 8080);
 
         final UUID uniqueIdKey = UUID.randomUUID();
         UUID uniqueIdValue = UUID.randomUUID();
@@ -79,14 +79,14 @@ public class SeraphimClientExample {
 		/*System.out.println("Now doing async shit.");
 
 		final int[] times = {0};
-		
+
 		for (int j = 0; j < 100000; j++) {
 			cache.get(uniqueIdKey, new Consumer<UUID>() {
 				@Override
 				public void accept(UUID uuid) {
 					System.out.println("Uff: " + uuid);
 					times[0]++;
-					
+
 					System.out.println(times[0]);
 				}
 			});
