@@ -31,6 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>seraphim-server</artifactId>
+    <version>1.0.0</version>
 
     <build>
         <finalName>seraphim-server</finalName>
