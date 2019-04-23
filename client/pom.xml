@@ -65,7 +65,7 @@
     <dependencies>
         <!-- Skylla client -->
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.skylla</groupId>
             <artifactId>skylla-client</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
@@ -81,7 +81,7 @@
 
         <!-- Seraphim Commons -->
         <dependency>
-            <groupId>de.d3adspace</groupId>
+            <groupId>de.d3adspace.seraphim</groupId>
             <artifactId>seraphim-commons</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
