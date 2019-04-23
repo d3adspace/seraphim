@@ -36,7 +36,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.4.3</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -49,6 +49,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -58,12 +59,16 @@
     </build>
 
     <dependencies>
+
+        <!-- Skylla server -->
         <dependency>
             <groupId>de.d3adspace</groupId>
             <artifactId>skylla-server</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+
+        <!-- Seraphim commons -->
         <dependency>
             <groupId>de.d3adspace</groupId>
             <artifactId>seraphim-commons</artifactId>
