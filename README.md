@@ -11,12 +11,29 @@ https://github.com/D3adspaceEnterprises/skylla - Seraphim uses https://github.co
 
 **Maven dependencies**
 
+_Repositories:_
+```xml
+<repositories>
+    <repository>
+        <id>klauke-enterprises-maven-releases</id>
+        <name>Klauke Enterprises Maven Releases</name>
+        <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
+    </repository>
+
+    <repository>
+        <id>klauke-enterprises-maven-snapshots</id>
+        <name>Klauke Enterprises Maven Snapshots</name>
+        <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
+    </repository>
+</repositories>
+```
+
 _Client:_
 ```xml
 <dependency>
     <groupId>de.d3adspace</groupId>
     <artifactId>seraphim-client</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -25,7 +42,7 @@ _Server:_
 <dependency>
     <groupId>de.d3adspace</groupId>
     <artifactId>seraphim-server</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -34,7 +51,7 @@ _Commons:_
 <dependency>
     <groupId>de.d3adspace</groupId>
     <artifactId>seraphim-commons</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -50,7 +67,7 @@ import de.d3adspace.seraphim.server.SeraphimServer;
 public class SeraphimServerExample {
 	
 	public static void main(String[] args) {
-		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 1337);
+		SeraphimServer seraphimServer = SeraphimServerFactory.createServer("localhost", 8080);
 		seraphimServer.start();
 	}
 }
@@ -68,7 +85,7 @@ import java.util.UUID;
 public class SeraphimClientExample {
 	
 	public static void main(String[] args) {
-		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhsost", 1337);
+		Cache<UUID, UUID> cache = CacheFactory.connectToRemoteCache("localhost", 8080);
 		
 		UUID uniqueIdKey = UUID.randomUUID();
 		UUID uniqueIdValue = UUID.randomUUID();
