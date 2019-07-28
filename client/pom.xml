@@ -21,71 +21,71 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>seraphim-parent</artifactId>
-        <groupId>de.d3adspace.seraphim</groupId>
-        <version>2.0.0</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>seraphim-client</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+        <version>3.8.0</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-shade-plugin</artifactId>
+        <configuration>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+        <version>3.2.1</version>
+      </plugin>
+    </plugins>
+  </build>
 
-    <artifactId>seraphim-client</artifactId>
-    <version>1.0.0</version>
+  <dependencies>
+    <!-- Skylla client -->
+    <dependency>
+      <artifactId>skylla-client</artifactId>
+      <groupId>de.d3adspace.skylla</groupId>
+      <scope>compile</scope>
+      <version>1.0.0</version>
+    </dependency>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+    <!-- Hawkings -->
+    <dependency>
+      <artifactId>hawkings</artifactId>
+      <groupId>de.d3adspace</groupId>
+      <scope>compile</scope>
+      <version>1.1.0</version>
+    </dependency>
 
-    <dependencies>
-        <!-- Skylla client -->
-        <dependency>
-            <groupId>de.d3adspace.skylla</groupId>
-            <artifactId>skylla-client</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
+    <!-- Seraphim Commons -->
+    <dependency>
+      <artifactId>seraphim-commons</artifactId>
+      <groupId>de.d3adspace.seraphim</groupId>
+      <scope>compile</scope>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
 
-        <!-- Hawkings -->
-        <dependency>
-            <groupId>de.d3adspace</groupId>
-            <artifactId>hawkings</artifactId>
-            <version>1.1.0</version>
-            <scope>compile</scope>
-        </dependency>
+  <parent>
+    <artifactId>seraphim-parent</artifactId>
+    <groupId>de.d3adspace.seraphim</groupId>
+    <version>2.0.0</version>
+  </parent>
 
-        <!-- Seraphim Commons -->
-        <dependency>
-            <groupId>de.d3adspace.seraphim</groupId>
-            <artifactId>seraphim-commons</artifactId>
-            <version>1.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+  <version>1.0.0</version>
 
 </project>

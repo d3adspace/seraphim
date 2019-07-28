@@ -21,48 +21,48 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>seraphim-parent</artifactId>
 
-    <groupId>de.d3adspace.seraphim</groupId>
-    <artifactId>seraphim-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>2.0.0</version>
+  <distributionManagement>
+    <repository>
+      <id>klauke-enterprises-maven-releases</id>
+      <name>Klauke Enterprises Maven Releases</name>
+      <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
+    </repository>
 
-    <distributionManagement>
-        <repository>
-            <id>klauke-enterprises-maven-releases</id>
-            <name>Klauke Enterprises Maven Releases</name>
-            <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
-        </repository>
+    <snapshotRepository>
+      <id>klauke-enterprises-maven-snapshots</id>
+      <name>Klauke Enterprises Maven Snapshots</name>
+      <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <groupId>de.d3adspace.seraphim</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <modules>
+    <module>client</module>
+    <module>commons</module>
+    <module>server</module>
+    <module>example</module>
+  </modules>
 
-        <snapshotRepository>
-            <id>klauke-enterprises-maven-snapshots</id>
-            <name>Klauke Enterprises Maven Snapshots</name>
-            <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+  <packaging>pom</packaging>
 
-    <repositories>
-        <repository>
-            <id>klauke-enterprises-maven-releases</id>
-            <name>Klauke Enterprises Maven Releases</name>
-            <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
-        </repository>
+  <repositories>
+    <repository>
+      <id>klauke-enterprises-maven-releases</id>
+      <name>Klauke Enterprises Maven Releases</name>
+      <url>https://repository.klauke-enterprises.com/repository/maven-releases/</url>
+    </repository>
 
-        <repository>
-            <id>klauke-enterprises-maven-snapshots</id>
-            <name>Klauke Enterprises Maven Snapshots</name>
-            <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
-        </repository>
-    </repositories>
+    <repository>
+      <id>klauke-enterprises-maven-snapshots</id>
+      <name>Klauke Enterprises Maven Snapshots</name>
+      <url>https://repository.klauke-enterprises.com/repository/maven-snapshots/</url>
+    </repository>
+  </repositories>
 
-    <modules>
-        <module>client</module>
-        <module>commons</module>
-        <module>server</module>
-        <module>example</module>
-    </modules>
+  <version>2.0.0</version>
 
 </project>

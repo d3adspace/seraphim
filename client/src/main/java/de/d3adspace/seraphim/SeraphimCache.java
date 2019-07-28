@@ -23,7 +23,6 @@ package de.d3adspace.seraphim;
 
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.cache.CacheEntry;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
@@ -33,92 +32,92 @@ import java.util.function.Consumer;
  */
 public class SeraphimCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 
-    /**
-     * Underlying Map.
-     */
-    private final Map<KeyType, CacheEntry<ValueType>> cache;
+  /**
+   * Underlying Map.
+   */
+  private final Map<KeyType, CacheEntry<ValueType>> cache;
 
-    SeraphimCache() {
-        this.cache = new ConcurrentHashMap<>();
+  SeraphimCache() {
+    this.cache = new ConcurrentHashMap<>();
+  }
+
+  @Override
+  public void put(KeyType key, ValueType value) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
+    }
+    if (value == null) {
+      throw new IllegalArgumentException("value cannot be null");
     }
 
-    @Override
-    public void put(KeyType key, ValueType value) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("value cannot be null");
-        }
+    this.put(key, value, -1);
+  }
 
-        this.put(key, value, -1);
+  @Override
+  public void put(KeyType key, ValueType value, long timeToLive) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
+    }
+    if (value == null) {
+      throw new IllegalArgumentException("value cannot be null");
     }
 
-    @Override
-    public void put(KeyType key, ValueType value, long timeToLive) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("value cannot be null");
-        }
+    CacheEntry<ValueType> cacheEntry = new CacheEntry<>(value, timeToLive);
 
-        CacheEntry<ValueType> cacheEntry = new CacheEntry<>(value, timeToLive);
+    this.cache.put(key, cacheEntry);
+  }
 
-        this.cache.put(key, cacheEntry);
+  @Override
+  public ValueType get(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public ValueType get(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
+    CacheEntry<ValueType> cacheEntry = this.cache.get(key);
 
-        CacheEntry<ValueType> cacheEntry = this.cache.get(key);
-
-        if (cacheEntry == null) {
-            return null;
-        }
-
-        long expire = cacheEntry.getExpire();
-
-        if (expire != -1) {
-            long entrance = cacheEntry.getEntrance();
-
-            if ((System.currentTimeMillis() - entrance) > expire) {
-                this.invalidate(key);
-                return null;
-            }
-        }
-
-        return cacheEntry.getValue();
+    if (cacheEntry == null) {
+      return null;
     }
 
-    @Override
-    public void get(KeyType key, Consumer<ValueType> consumer) {
-        consumer.accept(this.get(key));
+    long expire = cacheEntry.getExpire();
+
+    if (expire != -1) {
+      long entrance = cacheEntry.getEntrance();
+
+      if ((System.currentTimeMillis() - entrance) > expire) {
+        this.invalidate(key);
+        return null;
+      }
     }
 
-    @Override
-    public boolean isPresent(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
+    return cacheEntry.getValue();
+  }
 
-        return this.get(key) != null;
+  @Override
+  public void get(KeyType key, Consumer<ValueType> consumer) {
+    consumer.accept(this.get(key));
+  }
+
+  @Override
+  public boolean isPresent(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public void invalidate(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
+    return this.get(key) != null;
+  }
 
-        this.cache.remove(key);
+  @Override
+  public void invalidate(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public void invalidateAll() {
-        this.cache.clear();
-    }
+    this.cache.remove(key);
+  }
+
+  @Override
+  public void invalidateAll() {
+    this.cache.clear();
+  }
 }

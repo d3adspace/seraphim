@@ -21,41 +21,41 @@
   -->
 
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>seraphim-parent</artifactId>
-        <groupId>de.d3adspace.seraphim</groupId>
-        <version>2.0.0</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <artifactId>seraphim-example</artifactId>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
+    </plugins>
+  </build>
 
-    <artifactId>seraphim-example</artifactId>
-    <version>1.0.0</version>
+  <dependencies>
+    <dependency>
+      <artifactId>seraphim-server</artifactId>
+      <groupId>de.d3adspace.seraphim</groupId>
+      <version>1.0.0</version>
+    </dependency>
+    <dependency>
+      <artifactId>seraphim-client</artifactId>
+      <groupId>de.d3adspace.seraphim</groupId>
+      <version>1.0.0</version>
+    </dependency>
+  </dependencies>
+  <modelVersion>4.0.0</modelVersion>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+  <parent>
+    <artifactId>seraphim-parent</artifactId>
+    <groupId>de.d3adspace.seraphim</groupId>
+    <version>2.0.0</version>
+  </parent>
 
-    <dependencies>
-        <dependency>
-            <groupId>de.d3adspace.seraphim</groupId>
-            <artifactId>seraphim-server</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>de.d3adspace.seraphim</groupId>
-            <artifactId>seraphim-client</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-    </dependencies>
+  <version>1.0.0</version>
 </project>

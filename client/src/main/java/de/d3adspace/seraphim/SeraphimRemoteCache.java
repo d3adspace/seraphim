@@ -24,12 +24,15 @@ package de.d3adspace.seraphim;
 import de.d3adspace.seraphim.cache.Cache;
 import de.d3adspace.seraphim.handler.SeraphimClientPacketHandler;
 import de.d3adspace.seraphim.protocol.SeraphimProtocol;
-import de.d3adspace.seraphim.protocol.packet.*;
+import de.d3adspace.seraphim.protocol.packet.PacketClear;
+import de.d3adspace.seraphim.protocol.packet.PacketGet;
+import de.d3adspace.seraphim.protocol.packet.PacketGetResponse;
+import de.d3adspace.seraphim.protocol.packet.PacketInvalidate;
+import de.d3adspace.seraphim.protocol.packet.PacketPut;
 import de.d3adspace.skylla.client.SkyllaClient;
 import de.d3adspace.skylla.client.SkyllaClientFactory;
 import de.d3adspace.skylla.commons.config.SkyllaConfig;
 import de.d3adspace.skylla.commons.protocol.Protocol;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,126 +45,126 @@ import java.util.function.Consumer;
  */
 public class SeraphimRemoteCache<KeyType, ValueType> implements Cache<KeyType, ValueType> {
 
-    /**
-     * The underlying skylla client.
-     */
-    private final SkyllaClient skyllaClient;
-    private ExecutorService executorService = Executors.newFixedThreadPool(4);
+  /**
+   * The underlying skylla client.
+   */
+  private final SkyllaClient skyllaClient;
+  private ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-    SeraphimRemoteCache(String serverHost, int serverPort) {
-        if (serverHost == null) {
-            throw new IllegalArgumentException("serverHost cannot be null");
-        }
-
-        Protocol protocol = SeraphimProtocol.getInstance();
-        protocol.registerListener(SeraphimClientPacketHandler.getInstance());
-
-        SkyllaConfig config = SkyllaConfig.newBuilder()
-                .setProtocol(protocol)
-                .setServerHost(serverHost)
-                .setServerPort(serverPort)
-                .createSkyllaConfig();
-
-        this.skyllaClient = SkyllaClientFactory.createSkyllaClient(config);
-        this.skyllaClient.connect();
+  SeraphimRemoteCache(String serverHost, int serverPort) {
+    if (serverHost == null) {
+      throw new IllegalArgumentException("serverHost cannot be null");
     }
 
-    @Override
-    public void put(KeyType key, ValueType value) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("value cannot be null");
-        }
+    Protocol protocol = SeraphimProtocol.getInstance();
+    protocol.registerListener(SeraphimClientPacketHandler.getInstance());
 
-        this.put(key, value, -1);
+    SkyllaConfig config = SkyllaConfig.newBuilder()
+        .setProtocol(protocol)
+        .setServerHost(serverHost)
+        .setServerPort(serverPort)
+        .createSkyllaConfig();
+
+    this.skyllaClient = SkyllaClientFactory.createSkyllaClient(config);
+    this.skyllaClient.connect();
+  }
+
+  @Override
+  public void put(KeyType key, ValueType value) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
+    }
+    if (value == null) {
+      throw new IllegalArgumentException("value cannot be null");
     }
 
-    @Override
-    public void put(KeyType key, ValueType value, long timeToLive) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
-        if (value == null) {
-            throw new IllegalArgumentException("value cannot be null");
-        }
+    this.put(key, value, -1);
+  }
 
-        PacketPut packetPut = new PacketPut(key, value, timeToLive);
-        this.skyllaClient.sendPacket(packetPut);
+  @Override
+  public void put(KeyType key, ValueType value, long timeToLive) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
+    }
+    if (value == null) {
+      throw new IllegalArgumentException("value cannot be null");
     }
 
-    @Override
-    public ValueType get(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
+    PacketPut packetPut = new PacketPut(key, value, timeToLive);
+    this.skyllaClient.sendPacket(packetPut);
+  }
 
-        AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
-        CountDownLatch countDownLatch = new CountDownLatch(1);
-
-        Consumer<PacketGetResponse> consumer = value -> {
-            atomicReference.set(value);
-            countDownLatch.countDown();
-        };
-
-        int callbackId = Seraphim.getHawkings().registerConsumer(consumer);
-
-        PacketGet packet = new PacketGet(callbackId, key);
-        this.skyllaClient.sendPacket(packet);
-
-        try {
-            countDownLatch.await(500, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        PacketGetResponse response = atomicReference.get();
-
-        if (response == null) {
-            return null;
-        }
-
-        return (ValueType) response.getValue();
+  @Override
+  public ValueType get(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public void get(KeyType key, Consumer<ValueType> consumer) {
-        executorService.execute(() -> {
-            int callbackId = Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
-                @Override
-                public void accept(PacketGetResponse packetGetResponse) {
-                    consumer.accept((ValueType) packetGetResponse.getValue());
-                }
-            });
+    AtomicReference<PacketGetResponse> atomicReference = new AtomicReference<>(null);
+    CountDownLatch countDownLatch = new CountDownLatch(1);
 
-            PacketGet packet = new PacketGet(callbackId, key);
-            skyllaClient.sendPacket(packet);
-        });
+    Consumer<PacketGetResponse> consumer = value -> {
+      atomicReference.set(value);
+      countDownLatch.countDown();
+    };
+
+    int callbackId = Seraphim.getHawkings().registerConsumer(consumer);
+
+    PacketGet packet = new PacketGet(callbackId, key);
+    this.skyllaClient.sendPacket(packet);
+
+    try {
+      countDownLatch.await(500, TimeUnit.MILLISECONDS);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
 
-    @Override
-    public boolean isPresent(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
+    PacketGetResponse response = atomicReference.get();
+
+    if (response == null) {
+      return null;
+    }
+
+    return (ValueType) response.getValue();
+  }
+
+  @Override
+  public void get(KeyType key, Consumer<ValueType> consumer) {
+    executorService.execute(() -> {
+      int callbackId = Seraphim.getHawkings().registerConsumer(new Consumer<PacketGetResponse>() {
+        @Override
+        public void accept(PacketGetResponse packetGetResponse) {
+          consumer.accept((ValueType) packetGetResponse.getValue());
         }
+      });
 
-        return get(key) != null;
+      PacketGet packet = new PacketGet(callbackId, key);
+      skyllaClient.sendPacket(packet);
+    });
+  }
+
+  @Override
+  public boolean isPresent(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public void invalidate(KeyType key) {
-        if (key == null) {
-            throw new IllegalArgumentException("key cannot be null");
-        }
+    return get(key) != null;
+  }
 
-        PacketInvalidate packet = new PacketInvalidate(key);
-        this.skyllaClient.sendPacket(packet);
+  @Override
+  public void invalidate(KeyType key) {
+    if (key == null) {
+      throw new IllegalArgumentException("key cannot be null");
     }
 
-    @Override
-    public void invalidateAll() {
-        PacketClear packet = new PacketClear();
-        this.skyllaClient.sendPacket(packet);
-    }
+    PacketInvalidate packet = new PacketInvalidate(key);
+    this.skyllaClient.sendPacket(packet);
+  }
+
+  @Override
+  public void invalidateAll() {
+    PacketClear packet = new PacketClear();
+    this.skyllaClient.sendPacket(packet);
+  }
 }

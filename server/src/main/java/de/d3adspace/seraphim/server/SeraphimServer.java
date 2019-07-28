@@ -26,13 +26,13 @@ package de.d3adspace.seraphim.server;
  */
 public interface SeraphimServer {
 
-    /**
-     * Start the server.
-     */
-    void start();
+  /**
+   * Start the server.
+   */
+  void start();
 
-    /**
-     * Stop the server.
-     */
-    void stop();
+  /**
+   * Stop the server.
+   */
+  void stop();
 }

@@ -30,28 +30,28 @@ import de.d3adspace.seraphim.cache.Cache;
  */
 public class CacheFactory {
 
-    /**
-     * Create a new application local cache.
-     *
-     * @param <KeyType>   The type of the cache key.
-     * @param <ValueType> The type of the cache value.
-     * @return The cache.
-     */
-    public static <KeyType, ValueType> Cache<KeyType, ValueType> createCache() {
-        return new SeraphimCache<>();
-    }
+  /**
+   * Create a new application local cache.
+   *
+   * @param <KeyType> The type of the cache key.
+   * @param <ValueType> The type of the cache value.
+   * @return The cache.
+   */
+  public static <KeyType, ValueType> Cache<KeyType, ValueType> createCache() {
+    return new SeraphimCache<>();
+  }
 
-    /**
-     * Create a new remote cache connection.
-     *
-     * @param host        The host of the server.
-     * @param port        The port of the server.
-     * @param <KeyType>   The type of cache key.
-     * @param <ValueType> The type of the cache value.
-     * @return The cache.
-     */
-    public static <KeyType, ValueType> Cache<KeyType, ValueType> connectToRemoteCache(String host,
-                                                                                      int port) {
-        return new SeraphimRemoteCache<>(host, port);
-    }
+  /**
+   * Create a new remote cache connection.
+   *
+   * @param host The host of the server.
+   * @param port The port of the server.
+   * @param <KeyType> The type of cache key.
+   * @param <ValueType> The type of the cache value.
+   * @return The cache.
+   */
+  public static <KeyType, ValueType> Cache<KeyType, ValueType> connectToRemoteCache(String host,
+      int port) {
+    return new SeraphimRemoteCache<>(host, port);
+  }
 }

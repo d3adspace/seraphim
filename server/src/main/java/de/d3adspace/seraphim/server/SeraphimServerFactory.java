@@ -28,14 +28,14 @@ package de.d3adspace.seraphim.server;
  */
 public class SeraphimServerFactory {
 
-    /**
-     * Create a new server
-     *
-     * @param host The host.
-     * @param port The port.
-     * @return The server.
-     */
-    public static SeraphimServer createServer(String host, int port) {
-        return new SimpleSeraphimServer(host, port);
-    }
+  /**
+   * Create a new server
+   *
+   * @param host The host.
+   * @param port The port.
+   * @return The server.
+   */
+  public static SeraphimServer createServer(String host, int port) {
+    return new SimpleSeraphimServer(host, port);
+  }
 }

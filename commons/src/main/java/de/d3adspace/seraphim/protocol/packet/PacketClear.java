@@ -33,15 +33,15 @@ import de.d3adspace.skylla.commons.protocol.packet.SkyllaPacketMeta;
 @SkyllaPacketMeta(id = 5)
 public class PacketClear extends SkyllaPacket {
 
-    // Nothing to do here
+  // Nothing to do here
 
-    @Override
-    public void write(SkyllaBuffer skyllaBuffer) {
+  @Override
+  public void write(SkyllaBuffer skyllaBuffer) {
 
-    }
+  }
 
-    @Override
-    public void read(SkyllaBuffer skyllaBuffer) {
+  @Override
+  public void read(SkyllaBuffer skyllaBuffer) {
 
-    }
+  }
 }

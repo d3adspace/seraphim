@@ -28,17 +28,17 @@ import de.d3adspace.hawkings.Hawkings;
  */
 public class Seraphim {
 
-    /**
-     * Hawkings instance.
-     */
-    private static Hawkings HAWKINGS = new Hawkings<>();
+  /**
+   * Hawkings instance.
+   */
+  private static Hawkings HAWKINGS = new Hawkings<>();
 
-    /**
-     * Get the hawkings instance.
-     *
-     * @return The hawkings.
-     */
-    public static Hawkings getHawkings() {
-        return HAWKINGS;
-    }
+  /**
+   * Get the hawkings instance.
+   *
+   * @return The hawkings.
+   */
+  public static Hawkings getHawkings() {
+    return HAWKINGS;
+  }
 }
