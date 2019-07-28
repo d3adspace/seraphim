@@ -49,6 +49,10 @@
 
   <packaging>pom</packaging>
 
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
   <repositories>
     <repository>
       <id>klauke-enterprises-maven-releases</id>
