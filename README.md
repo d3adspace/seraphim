@@ -1,7 +1,7 @@
 # Seraphim
 
 A simple and lightweight key-value in memory store built on top of 
-https://github.com/D3adspaceEnterprises/skylla - Seraphim uses https://github.com/D3adspaceEnterprises/hawkings for local consumer management. The intention is to provide an easy to use in memory store for little network applications. You can also take a look at https://github.com/D3adspaceEnterprises/reincarnation if youre searching for a pub sub service. 
+https://github.com/D3adspaceEnterprises/skylla - Seraphim uses https://github.com/D3adspaceEnterprises/hawkings for local consumer management. The intention is to provide an easy to use in memory store for little network applications. You can also take a look at https://github.com/D3adspaceEnterprises/heimdall if youre searching for a pub sub service. 
 
 # Installation / Usage
 
