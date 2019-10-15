@@ -18,7 +18,7 @@ RUN mvn clean install package
 ########################
 ### Base for runtime ###
 ########################
-FROM openjdk:8 AS runtime
+FROM openjdk:11 AS runtime
 
 WORKDIR /opt/app
 
