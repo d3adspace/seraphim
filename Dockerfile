@@ -3,8 +3,6 @@
 ############################
 FROM maven:latest AS build
 
-MAINTAINER Felix Klauke <info@felix-klauke.de>
-
 ######################
 ### Copy all files ###
 ######################
