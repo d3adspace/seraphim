@@ -39,7 +39,7 @@
             <phase>package</phase>
           </execution>
         </executions>
-        <version>3.2.2</version>
+        <version>3.2.4</version>
       </plugin>
     </plugins>
   </build>
