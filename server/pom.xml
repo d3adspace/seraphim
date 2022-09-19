@@ -53,7 +53,7 @@
           </archive>
         </configuration>
         <groupId>org.apache.maven.plugins</groupId>
-        <version>3.2.0</version>
+        <version>3.3.0</version>
       </plugin>
     </plugins>
   </build>
